@@ -10,7 +10,7 @@
   },
   "author": "Leandro Soares",
   "license": "MIT",
-  "packageManager": "yarn@4.4.0",
+  "packageManager": "yarn@4.4.0+sha256.5f228cb28f2edb97d8c3b667fb7b2fdcf06c46798e25ea889dad9e0b4bc2e2c1",
   "devDependencies": {
     "@eslint/js": "^9.8.0",
     "@semantic-release/commit-analyzer": "^13.0.0",
