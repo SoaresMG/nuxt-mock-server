@@ -12,10 +12,6 @@ export default {
     ],
     "@semantic-release/release-notes-generator",
     "@semantic-release/npm",
-    ["@semantic-release/github", {
-      assets: [
-        { path: "dist/**/*.*", label: "Module" },
-      ],
-    }],
+    "@semantic-release/github",
   ],
 };
