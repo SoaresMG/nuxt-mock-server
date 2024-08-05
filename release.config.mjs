@@ -14,7 +14,7 @@ export default {
     "@semantic-release/npm",
     ["@semantic-release/github", {
       assets: [
-        { path: "dist", label: "Module" },
+        { path: "dist/**/*.*", label: "Module" },
       ],
     }],
   ],

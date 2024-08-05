@@ -53,7 +53,7 @@ To have it fixed set it as `path.resolve(__dirname, "mocks")`. This is something
 
 ## Roadmap
 
-🚀 &nbsp;**OPEN** &nbsp;&nbsp;📉 &nbsp;&nbsp;**1 / 6** goals completed **(17%)** &nbsp;&nbsp;📅 &nbsp;&nbsp;**Sun Aug 4 2024**
+🚀 &nbsp;**OPEN** &nbsp;&nbsp;📉 &nbsp;&nbsp;**4 / 14** goals completed **(28%)** &nbsp;&nbsp;📅 &nbsp;&nbsp;**Sun Aug 5 2024**
 
 | Status | Topic | Goal | Milestone |
 | :---: | :--- | :--- | :--- |
@@ -62,6 +62,7 @@ To have it fixed set it as `path.resolve(__dirname, "mocks")`. This is something
 | ✔ | Formats | Support `text/html` | Q3 2024
 | ❌ | Formats | Support `application/xml` | Q3 2024
 | ✔ | Formats | Support `application/octet-stream` | Q3 2024
+| ❌ | Tests | Add proper tests | Q3 2024
 | ❌ | DX | Improve docs | Q3 2024
 | ❌ | DX | Non-root (e.g monorepo) support for mock directory | Q3 2024
 | ❌ | DX | Add page badge (floating top-right) that tells<br>the developer if the page has been mocked | Q3 2024
