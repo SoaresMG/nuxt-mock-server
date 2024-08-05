@@ -9052,6 +9052,7 @@ __metadata:
     "@nuxt/test-utils": "npm:^3.14.0"
     "@semantic-release/commit-analyzer": "npm:^13.0.0"
     "@types/node": "npm:^20.14.11"
+    consola: "npm:^3.2.3"
     eslint: "npm:^9.8.0"
     husky: "npm:^9.1.4"
     nuxt: "npm:^3.12.4"
@@ -9060,6 +9061,10 @@ __metadata:
     typescript: "npm:^5.5.4"
     vitest: "npm:^2.0.5"
     vue-tsc: "npm:^2.0.29"
+  peerDependencies:
+    "@nuxt/kit": ^3.12.4
+    consola: ^3.2.3
+    h3: ^1.12.0
   languageName: unknown
   linkType: soft
 
