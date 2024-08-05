@@ -12,6 +12,7 @@ node_modules
 # Yarn
 **/.yarn/cache
 **/.yarn/*state*
+.yarn/install-state.gz
 
 # Generated dirs
 dist

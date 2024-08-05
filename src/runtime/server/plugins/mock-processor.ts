@@ -1,5 +1,7 @@
-import { consola } from "consola";
-import { JsonMocker } from "../mockers/json-mocker";
+import consola from "consola";
+import { defineErrorHandler } from "../utils/define-error-handler";
+import { AutoFormatter } from "../formatters";
+import type { FormatterDataType } from "../types";
 import { defineNitroPlugin, useRuntimeConfig } from "#imports";
 
 const mockedHeader = {
@@ -11,73 +13,61 @@ const mockedHeader = {
 export default defineNitroPlugin((nitro) => {
   const { mockServer } = useRuntimeConfig();
 
-  if (!mockServer) {
+  if (!mockServer || !mockServer.enabled || !mockServer.pathMatch || !mockServer.mockDir) {
     return;
   }
 
   const routeRegExp = new RegExp(mockServer.pathMatch);
 
-  const mocker = new JsonMocker(mockServer.mockDir);
+  const formatter = new AutoFormatter(mockServer.mockDir, !!mockServer.compress, consola.error);
 
-  nitro.hooks.hook("request", async (event) => {
-    try {
-      if (
-        !routeRegExp.test(event.path)
-        || event.headers.get("X-MOCKED") === mockedHeader.ignore
-      ) {
-        return;
-      }
+  nitro.hooks.hook("request", defineErrorHandler(async (event) => {
+    if (
+      !routeRegExp.test(event.path)
+      || event.headers.get("X-MOCKED") === mockedHeader.ignore
+    ) {
+      return;
+    }
 
-      const mockEntry = await mocker.get(event.path);
+    const mockResponse = await formatter.get(event.path);
 
-      if (mockEntry) {
-        event.respondWith(
-          new Response(JSON.stringify(mockEntry.data), {
-            headers: {
-              "X-MOCKED": mockedHeader.found,
-              "Content-Type": "application/json",
-              "Last-Modified": mockEntry.meta.lastModified,
-            },
-            status: 200,
-            statusText: "Mocked response",
-          }),
-        );
-        return;
-      }
+    if (mockResponse) {
+      const { body, headers, status } = mockResponse;
 
-      const response = await nitro.localFetch(event.path, {
-        method: "GET",
-        cache: "no-cache",
-        headers: {
-          "X-MOCKED": mockedHeader.ignore,
+      event.respondWith(new Response(body, {
+        headers,
+        status,
+      }));
+      return;
+    }
+
+    const localResponse = await nitro.localFetch(event.path, {
+      method: "GET",
+      cache: "no-cache",
+      headers: {
+        "X-MOCKED": mockedHeader.ignore,
+      },
+    });
+
+    if (localResponse.ok) {
+      const { body, headers, status } = await formatter.create({
+        meta: {
+          path: event.path,
+          lastModified: new Date(),
+          headers: {
+            ...Object.fromEntries(localResponse.headers.entries()),
+            "content-type": localResponse.headers.get("content-type") as FormatterDataType || "text/plain",
+          },
         },
+        response: localResponse,
       });
 
-      if (response.headers.get("Content-Type") === "application/json") {
-        const jsonResponse = await response.json();
+      event.respondWith(new Response(body, {
+        headers,
+        status,
+      }));
 
-        if (response.ok) {
-          await mocker.create({
-            meta: {
-              path: event.path,
-              lastModified: new Date(),
-            },
-            data: jsonResponse,
-          });
-
-          event.headers.set("X-MOCKED", mockedHeader.created);
-        }
-
-        event.respondWith(new Response(JSON.stringify(jsonResponse), {
-          headers: response.headers,
-          status: response.status,
-          statusText: response.statusText,
-        }));
-      }
+      event.headers.set("X-MOCKED", mockedHeader.created);
     }
-    catch (e) {
-      consola.error("An error occurred while processing the mock server request", e);
-      throw e;
-    }
-  });
+  }));
 });

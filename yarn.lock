@@ -9056,6 +9056,7 @@ __metadata:
     husky: "npm:^9.1.4"
     nuxt: "npm:^3.12.4"
     semantic-release: "npm:^24.0.0"
+    superjson: "npm:^2.2.1"
     typescript: "npm:^5.5.4"
     vitest: "npm:^2.0.5"
     vue-tsc: "npm:^2.0.29"

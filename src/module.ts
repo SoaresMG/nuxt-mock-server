@@ -9,9 +9,16 @@ import {
 const logger = useLogger("@nuxt/mock-server");
 
 export interface ModuleOptions {
-  enabled?: boolean
-  pathMatch?: string
-  mockDir?: string
+  enabled?: boolean;
+  pathMatch?: string;
+  mockDir?: string;
+  compress?: boolean;
+}
+
+declare module "@nuxt/schema" {
+  interface RuntimeConfig {
+    mockServer: ModuleOptions;
+  }
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -23,6 +30,7 @@ export default defineNuxtModule<ModuleOptions>({
     enabled: false,
     pathMatch: "^\\/api\\/.*$",
     mockDir: "mocks",
+    compress: false,
   },
   async setup(options, nuxt) {
     if (
@@ -46,7 +54,7 @@ export default defineNuxtModule<ModuleOptions>({
       getContents: () => `
     declare module "@nuxt/schema" {
       interface RuntimeConfig {
-          mockServer?: import("${resolve("./runtime/types")}").ModuleOptions;
+          mockServer?: import("${resolve("./module")}").ModuleOptions;
       }
     }
 
