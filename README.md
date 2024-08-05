@@ -57,12 +57,16 @@ To have it fixed set it as `path.resolve(__dirname, "mocks")`. This is something
 
 | Status | Topic | Goal | Milestone |
 | :---: | :--- | :--- | :--- |
-| ✔ | Formats | Manage JSON mocks | Q3 2024
+| ✔ | Formats | Support `application/json` | Q3 2024
+| ✔ | Formats | Support `text/plain` | Q3 2024
+| ✔ | Formats | Support `text/html` | Q3 2024
+| ❌ | Formats | Support `application/xml` | Q3 2024
+| ✔ | Formats | Support `application/octet-stream` | Q3 2024
 | ❌ | DX | Improve docs | Q3 2024
 | ❌ | DX | Non-root (e.g monorepo) support for mock directory | Q3 2024
 | ❌ | DX | Add page badge (floating top-right) that tells<br>the developer if the page has been mocked | Q3 2024
 | ❌ | DX | Add mock updates through badge or CLI | Q3 2024
-| ❌ | Formats | Support text mocks | Q4 2024
+| ❌ | Formats | Custom formats | Q4 2024
 | ❌ | Core | Iterate `prerender` routes to generate mocks on server init | Q4 2024
 | ❌ | Core | Support presets (mock bundles that can be switched) | Q4 2024
 | ❌ | Core | Support remote shared servers | Q1 2025

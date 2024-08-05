@@ -34,7 +34,8 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.12.4"
+    "@nuxt/kit": "^3.12.4",
+    "superjson": "^2.2.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.3.0",

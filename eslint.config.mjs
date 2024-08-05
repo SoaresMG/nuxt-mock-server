@@ -18,5 +18,11 @@ export default createConfigForNuxt({
   rules: {
     "@stylistic/semi": ["error", "always"],
     "@stylistic/quotes": ["error", "double"],
+    "@stylistic/member-delimiter-style": ["error", {
+      singleline: {
+        delimiter: "semi",
+        requireLast: true,
+      },
+    }],
   },
 });
