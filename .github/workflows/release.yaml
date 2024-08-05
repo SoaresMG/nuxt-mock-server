@@ -21,8 +21,10 @@ jobs:
         run: yarn install --immutable
       - name: Lint
         run: yarn lint:ci
+      - name: Prepare
+        run: yarn build:prepare
       - name: Build
-        run: yarn prepack
+        run: yarn build:prepack
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
         env:
