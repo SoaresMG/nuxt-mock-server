@@ -2,10 +2,7 @@
  * @type {import('semantic-release').GlobalConfig}
  */
 export default {
-  branches: ["main", {
-    name: "beta",
-    prerelease: true,
-  }],
+  branches: ["main", "next"],
   plugins: [
     [
       "@semantic-release/commit-analyzer",
