@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { wait } from "../../utils/wait";
+import { getQuery, defineEventHandler } from "#imports";
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);

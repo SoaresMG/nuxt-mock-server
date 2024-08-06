@@ -15,6 +15,8 @@
 
 This module provides an easy way to setup mocks for `nuxt`.
 
+Heavily inspired in [@nuxt/sitemap](https://github.com/nuxt-modules/sitemap).
+
 
 ### How does it work?
 These mocks are generated into a provided folder inside the repository which in turn are provided by the module.
@@ -65,8 +67,8 @@ To have it fixed set it as `path.resolve(__dirname, "mocks")`. This is something
 | ❌ | Tests | Add proper tests | Q3 2024
 | ❌ | DX | Improve docs | Q3 2024
 | ❌ | DX | Non-root (e.g monorepo) support for mock directory | Q3 2024
-| ❌ | DX | Add page badge (floating top-right) that tells<br>the developer if the page has been mocked | Q3 2024
-| ❌ | DX | Add mock updates through badge or CLI | Q3 2024
+| ❌ | DX | Add devtools page | Q3 2024
+| ❌ | DX | Add mock updates through devtools | Q3 2024
 | ❌ | Formats | Custom formats | Q4 2024
 | ❌ | Core | Iterate `prerender` routes to generate mocks on server init | Q4 2024
 | ❌ | Core | Support presets (mock bundles that can be switched) | Q4 2024

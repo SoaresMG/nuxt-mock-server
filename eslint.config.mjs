@@ -24,5 +24,8 @@ export default createConfigForNuxt({
         requireLast: true,
       },
     }],
+    "vue/multi-word-component-names": ["error", {
+      ignores: ["default", "index"],
+    }],
   },
 });

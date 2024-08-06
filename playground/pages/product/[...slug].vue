@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
     {{ JSON.stringify(data) }}
@@ -5,6 +6,8 @@
 </template>
 
 <script setup lang="ts">
+import { useFetch, useRoute } from "#imports";
+
 const {
   params: { slug },
 } = useRoute();

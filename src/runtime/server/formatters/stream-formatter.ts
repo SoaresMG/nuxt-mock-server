@@ -1,4 +1,4 @@
-import type { MockEntry, MockRequest } from "../types";
+import type { MockEntry, MockRequest } from "../../types";
 import { TextFormatter } from "./text-formatter";
 
 export class StreamFormatter extends TextFormatter {

@@ -1,4 +1,4 @@
-import type { MockEntry, MockRequest } from "../types";
+import type { MockEntry, MockRequest } from "../../types";
 import { Formatter } from "./base";
 
 export class JsonFormatter extends Formatter {
@@ -22,15 +22,19 @@ export class JsonFormatter extends Formatter {
   }
 
   override async get(path: string) {
+    const entry = await this.getEntry(path);
+    this.assertEntry(entry, path);
+    return this.processEntry(entry);
+  }
+
+  override async getEntry(path: string) {
     const raw = await this.raw(path);
 
     if (!raw) {
       return;
     }
 
-    const entry = await this.processRaw(raw);
-    this.assertEntry(entry, path);
-    return this.processEntry(entry);
+    return await this.processRaw(raw);
   }
 
   override async processEntry(entry: MockEntry) {

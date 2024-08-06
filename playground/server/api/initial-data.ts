@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { wait } from "../utils/wait";
+import { defineEventHandler } from "#imports";
 
 export default defineEventHandler(async () => {
   await wait(2000);

@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div class="products">
     <ul
@@ -14,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+import { useFetch, useRoute } from "#imports";
+
 const {
   params: { slug },
 } = useRoute();

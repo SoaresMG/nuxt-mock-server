@@ -1,4 +1,4 @@
-import type { FormatterDataType, MockRequest, MockEntry, MockResponse } from "../types";
+import type { FormatterDataType, MockRequest, MockEntry, MockResponse } from "../../types";
 import type { BaseFormatter, OnErrorCallback } from "./base";
 import { JsonFormatter } from "./json-formatter";
 import { TextFormatter } from "./text-formatter";
@@ -49,6 +49,16 @@ export class AutoFormatter implements BaseFormatter {
 
   public processEntry(entry: MockEntry): Promise<MockResponse | undefined> {
     return this.formatters[entry.meta.headers["content-type"]].processEntry(entry);
+  }
+
+  public async getEntry(path: string): Promise<MockEntry | undefined> {
+    const raw = await this.raw(path);
+
+    if (!raw) {
+      throw new TypeError(`Expected raw to be defined for ${path}`);
+    }
+
+    return this.formatters[raw.meta.headers["content-type"]].processRaw(raw);
   }
 
   public processRaw(entry: MockEntry): Promise<MockEntry | undefined> {
