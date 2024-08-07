@@ -1,4 +1,4 @@
-import { resolve } from "pathe";
+import { resolve } from "node:path";
 import DevtoolsUIKit from "@nuxt/devtools-ui-kit";
 
 export default defineNuxtConfig({
