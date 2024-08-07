@@ -61,6 +61,7 @@
     "@nuxt/ui": "^2.18.4",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.0",
+    "@semantic-release/git": "^10.0.1",
     "@types/node": "^20.14.11",
     "eslint": "^9.8.0",
     "h3": "^1.12.0",
