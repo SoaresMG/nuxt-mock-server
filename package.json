@@ -59,6 +59,7 @@
     "@nuxt/schema": "^3.12.4",
     "@nuxt/test-utils": "^3.14.0",
     "@nuxt/ui": "^2.18.4",
+    "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.0",
     "@types/node": "^20.14.11",
     "eslint": "^9.8.0",
