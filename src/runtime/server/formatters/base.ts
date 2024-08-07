@@ -1,7 +1,7 @@
 import { resolve } from "node:path";
 import { mkdir, writeFile, stat, readFile } from "node:fs/promises";
 import superjson from "superjson";
-import type { MockRequest, MockEntry, MockResponse, MockMeta } from "../types";
+import type { MockRequest, MockEntry, MockResponse, MockMeta } from "../../types";
 
 async function exists(path: string) {
   try {
@@ -16,6 +16,8 @@ async function exists(path: string) {
 export abstract class BaseFormatter {
   public abstract create(entry: MockRequest): Promise<MockResponse>;
   public abstract get(path: string): Promise<MockResponse | undefined>;
+  public abstract getEntry(path: string): Promise<MockEntry | undefined>;
+
   public abstract raw(path: string): Promise<MockEntry | undefined>;
   public abstract processRaw(entry: MockEntry): Promise<MockEntry | undefined>;
   public abstract processEntry(entry: MockEntry): Promise<MockResponse | undefined>;
@@ -37,7 +39,7 @@ export abstract class Formatter implements BaseFormatter {
 
   protected getMockFilePath(path: string) {
     const normalizedPath = path.replace(/\//g, "_");
-    return resolve(this.outputDir, `${normalizedPath}.json`);
+    return resolve(this.outputDir, normalizedPath);
   }
 
   private stringify(entry: MockEntry) {
@@ -52,7 +54,7 @@ export abstract class Formatter implements BaseFormatter {
     }
 
     if (!await exists(filePath)) {
-      await writeFile(filePath, this.stringify(entry), {
+      await writeFile(`${filePath}.json`, this.stringify(entry), {
         encoding: "utf-8",
       });
     }
@@ -60,9 +62,10 @@ export abstract class Formatter implements BaseFormatter {
 
   public async raw(path: string): Promise<MockEntry | undefined> {
     const filePath = this.getMockFilePath(path);
+    const extensionfullPath = filePath.includes(".json") ? filePath : `${filePath}.json`;
 
-    if (await exists(filePath)) {
-      return superjson.parse(await readFile(filePath, "utf-8"));
+    if (await exists(extensionfullPath)) {
+      return superjson.parse(await readFile(extensionfullPath, "utf-8"));
     }
   }
 
@@ -84,6 +87,7 @@ export abstract class Formatter implements BaseFormatter {
 
   public abstract create(entry: MockRequest): Promise<MockResponse>;
   public abstract get(path: string): Promise<MockResponse | undefined>;
+  public abstract getEntry(path: string): Promise<MockEntry | undefined>;
   public abstract processEntry(entry: MockEntry): Promise<MockResponse | undefined>;
 
   public assertEntry(entry: MockEntry | undefined, path: string): asserts entry is MockEntry {

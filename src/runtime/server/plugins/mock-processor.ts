@@ -1,7 +1,7 @@
 import consola from "consola";
 import { defineErrorHandler } from "../utils/define-error-handler";
 import { AutoFormatter } from "../formatters";
-import type { FormatterDataType } from "../types";
+import type { FormatterDataType } from "../../types";
 import { defineNitroPlugin, useRuntimeConfig } from "#imports";
 
 const mockedHeader = {

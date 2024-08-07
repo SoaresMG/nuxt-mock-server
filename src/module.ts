@@ -4,7 +4,11 @@ import {
   addServerPlugin,
   addTypeTemplate,
   useLogger,
+  addServerHandler,
 } from "@nuxt/kit";
+import { readPackageJSON } from "pkg-types";
+import { setupDevToolsUI } from "./devtools";
+import type { ModulePackageInfo } from "./runtime/types";
 
 const logger = useLogger("@nuxt/mock-server");
 
@@ -13,11 +17,12 @@ export interface ModuleOptions {
   pathMatch?: string;
   mockDir?: string;
   compress?: boolean;
+  devtools?: boolean;
 }
 
 declare module "@nuxt/schema" {
   interface RuntimeConfig {
-    mockServer: ModuleOptions;
+    mockServer: ModuleOptions & { package: ModulePackageInfo; };
   }
 }
 
@@ -31,6 +36,7 @@ export default defineNuxtModule<ModuleOptions>({
     pathMatch: "^\\/api\\/.*$",
     mockDir: "mocks",
     compress: false,
+    devtools: true,
   },
   async setup(options, nuxt) {
     if (
@@ -41,20 +47,28 @@ export default defineNuxtModule<ModuleOptions>({
       return;
     }
 
-    const { resolve } = createResolver(import.meta.url);
+    const resolver = createResolver(import.meta.url);
 
     logger.info(`Mock server is enabled for ${options.pathMatch}`);
 
-    nuxt.options.runtimeConfig.mockServer = options;
+    const { name, version } = await readPackageJSON(resolver.resolve("../package.json"));
 
-    addServerPlugin(resolve("./runtime/server/plugins/mock-processor.ts"));
+    nuxt.options.runtimeConfig.mockServer = {
+      ...options,
+      package: {
+        name,
+        version,
+      },
+    };
+
+    addServerPlugin(resolver.resolve("./runtime/server/plugins/mock-processor.ts"));
 
     addTypeTemplate({
       filename: "module/mock-server.d.ts",
       getContents: () => `
     declare module "@nuxt/schema" {
       interface RuntimeConfig {
-          mockServer?: import("${resolve("./module")}").ModuleOptions;
+          mockServer?: import("${resolver.resolve("./module")}").ModuleOptions;
       }
     }
 
@@ -62,5 +76,19 @@ export default defineNuxtModule<ModuleOptions>({
               `,
       write: true,
     });
+
+    if (options.devtools) {
+      addServerHandler({
+        route: "/__mock-server__/entries",
+        handler: resolver.resolve("./runtime/server/routes/__mock-server__/entries"),
+      });
+
+      addServerHandler({
+        route: "/__mock-server__/meta",
+        handler: resolver.resolve("./runtime/server/routes/__mock-server__/meta"),
+      });
+
+      setupDevToolsUI(nuxt, resolver);
+    }
   },
 });

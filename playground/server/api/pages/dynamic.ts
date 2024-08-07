@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { wait } from "../../utils/wait";
+import { defineEventHandler, getQuery } from "#imports";
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
@@ -7,6 +8,10 @@ export default defineEventHandler(async (event) => {
   await wait(2000);
 
   const slug = query.slug?.toString();
+
+  if (slug?.includes("devtools") || slug === "test-error-slug") {
+    throw new Error(`The page with slug "${slug}" does not exist`);
+  }
 
   return {
     slug,
