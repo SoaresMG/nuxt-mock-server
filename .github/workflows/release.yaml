@@ -24,10 +24,8 @@ jobs:
         run: yarn install --immutable
       - name: Lint
         run: yarn lint:ci
-      - name: Prepare
-        run: yarn build:prepare
       - name: Build
-        run: yarn build:prepack
+        run: yarn build
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
