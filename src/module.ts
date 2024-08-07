@@ -61,7 +61,7 @@ export default defineNuxtModule<ModuleOptions>({
       },
     };
 
-    addServerPlugin(resolver.resolve("./runtime/server/plugins/mock-processor.ts"));
+    addServerPlugin(resolver.resolve("./runtime/server/plugins/mock-processor"));
 
     addTypeTemplate({
       filename: "module/mock-server.d.ts",
