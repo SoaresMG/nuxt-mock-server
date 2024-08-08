@@ -1,5 +1,11 @@
 # nuxt-mock-server
 
+## 1.1.1
+
+### Patch Changes
+
+- [#32](https://github.com/SoaresMG/nuxt-mock-server/pull/32) [`445fe2f`](https://github.com/SoaresMG/nuxt-mock-server/commit/445fe2f64ec591aab2f85b68b59e1b82bc5468da) Thanks [@SoaresMG](https://github.com/SoaresMG)! - fix: remove compress unused option
+
 ## 1.1.0
 
 ### Minor Changes
