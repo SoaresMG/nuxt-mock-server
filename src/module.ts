@@ -16,7 +16,6 @@ export interface ModuleOptions {
   enabled?: boolean;
   pathMatch?: string;
   mockDir?: string;
-  compress?: boolean;
   devtools?: boolean;
 }
 
@@ -35,7 +34,6 @@ export default defineNuxtModule<ModuleOptions>({
     enabled: false,
     pathMatch: "^\\/api\\/.*$",
     mockDir: "mocks",
-    compress: false,
     devtools: true,
   },
   async setup(options, nuxt) {

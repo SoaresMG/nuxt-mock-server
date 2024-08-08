@@ -19,7 +19,7 @@ export default defineNitroPlugin((nitro) => {
 
   const routeRegExp = new RegExp(mockServer.pathMatch);
 
-  const formatter = new AutoFormatter(mockServer.mockDir, !!mockServer.compress, consola.error);
+  const formatter = new AutoFormatter(mockServer.mockDir, consola.error);
 
   nitro.hooks.hook("request", defineErrorHandler(async (event) => {
     if (

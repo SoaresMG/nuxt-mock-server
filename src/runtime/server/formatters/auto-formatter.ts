@@ -8,16 +8,16 @@ export class AutoFormatter implements BaseFormatter {
   protected formatters: Record<FormatterDataType, BaseFormatter>;
   private defaultFormatter: JsonFormatter;
 
-  constructor(outputDir: string, compressionEnabled: boolean, onError: OnErrorCallback) {
-    this.defaultFormatter = new JsonFormatter(outputDir, compressionEnabled, onError);
-    const textFormatter = new TextFormatter(outputDir, compressionEnabled, onError);
+  constructor(outputDir: string, onError: OnErrorCallback) {
+    this.defaultFormatter = new JsonFormatter(outputDir, onError);
+    const textFormatter = new TextFormatter(outputDir, onError);
 
     this.formatters = {
       "application/json": this.defaultFormatter,
       "application/xml": textFormatter,
       "text/plain": textFormatter,
       "text/html": textFormatter,
-      "application/octet-stream": new StreamFormatter(outputDir, compressionEnabled, onError),
+      "application/octet-stream": new StreamFormatter(outputDir, onError),
     };
   }
 
