@@ -1,6 +1,6 @@
 {
   "name": "nuxt-mock-server",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "Module that easily adds a mock server to your Nuxt project",
   "author": "Leandro Soares",
   "license": "MIT",
@@ -18,7 +18,8 @@
   },
   "workspaces": [
     "playground",
-    "client"
+    "client",
+    "./"
   ],
   "main": "./dist/module.cjs",
   "types": "./dist/types.d.ts",
@@ -36,9 +37,11 @@
     "lint:ci": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
+    "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit",
+    "release": "yarn build && changeset publish"
   },
   "dependencies": {
+    "@changesets/cli": "^2.27.7",
     "@nuxt/devtools-kit": "^1.3.9",
     "@nuxt/kit": "^3.12.4",
     "consola": "^3.2.3",
@@ -47,6 +50,7 @@
     "superjson": "^2.2.1"
   },
   "devDependencies": {
+    "@changesets/changelog-github": "^0.5.0",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@faker-js/faker": "^8.4.1",
@@ -59,9 +63,6 @@
     "@nuxt/schema": "^3.12.4",
     "@nuxt/test-utils": "^3.14.0",
     "@nuxt/ui": "^2.18.4",
-    "@semantic-release/changelog": "^6.0.3",
-    "@semantic-release/commit-analyzer": "^13.0.0",
-    "@semantic-release/git": "^10.0.1",
     "@types/node": "^20.14.11",
     "eslint": "^9.8.0",
     "h3": "^1.12.0",
@@ -69,7 +70,6 @@
     "nitropack": "^2.9.7",
     "nuxi": "^3.12.0",
     "nuxt": "^3.12.4",
-    "semantic-release": "^24.0.0",
     "typescript": "^5.5.4",
     "vite": "^5.4.0",
     "vitest": "^2.0.5",
