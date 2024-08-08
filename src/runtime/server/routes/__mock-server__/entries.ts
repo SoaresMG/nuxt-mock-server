@@ -12,7 +12,7 @@ export default defineEventHandler(async () => {
     return;
   }
 
-  const formatter = new AutoFormatter(mockServer.mockDir, !!mockServer.compress, consola.error);
+  const formatter = new AutoFormatter(mockServer.mockDir, consola.error);
   const mockFiles = await fs.readdir(mockServer.mockDir);
   return (await Promise.all(mockFiles.map(file => formatter.getEntry(file)))).filter(notUndefinedOrNull);
 });

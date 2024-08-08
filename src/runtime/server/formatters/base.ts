@@ -28,12 +28,10 @@ export type OnErrorCallback = (err: Error) => void;
 
 export abstract class Formatter implements BaseFormatter {
   protected outputDir: string;
-  protected compressionEnabled: boolean;
   onError: OnErrorCallback;
 
-  constructor(outputDir: string, compressionEnabled: boolean, onError: OnErrorCallback) {
+  constructor(outputDir: string, onError: OnErrorCallback) {
     this.outputDir = outputDir;
-    this.compressionEnabled = compressionEnabled;
     this.onError = onError;
   }
 
