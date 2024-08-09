@@ -1,5 +1,5 @@
 import type { EventHandler, EventHandlerRequest, H3Event } from "h3";
-import { DEFAULT_PRESET, PRESET_COOKIE_KEY } from "../utils/constants";
+import { DEFAULT_PRESET, PRESET_COOKIE_KEY } from "../../utils";
 import { defineEventHandler, getCookie, setCookie } from "#imports";
 
 export interface PresetHandlerOptions {

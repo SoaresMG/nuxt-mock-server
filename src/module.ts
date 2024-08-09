@@ -9,7 +9,7 @@ import {
 import { readPackageJSON } from "pkg-types";
 import { setupDevToolsUI } from "./devtools";
 import type { ModulePackageInfo } from "./runtime/types";
-import { DEFAULT_PRESET } from "./runtime/server/utils/constants";
+import { DEFAULT_PRESET } from "./runtime/utils";
 
 const logger = useLogger("@nuxt/mock-server");
 
@@ -84,24 +84,24 @@ export {};
     if (options.devtools) {
       addServerHandler({
         route: "/__mock-server__/presets",
-        handler: resolver.resolve("./runtime/server/routes/__mock-server__/presets"),
+        handler: resolver.resolve("./runtime/server/routes/presets"),
       });
 
       addServerHandler({
         route: "/__mock-server__/meta",
-        handler: resolver.resolve("./runtime/server/routes/__mock-server__/meta"),
+        handler: resolver.resolve("./runtime/server/routes/meta"),
       });
 
       addServerHandler({
         route: "/__mock-server__/set-preset",
         method: "POST",
-        handler: resolver.resolve("./runtime/server/routes/__mock-server__/set-preset.post"),
+        handler: resolver.resolve("./runtime/server/routes/set-preset.post"),
       });
 
       addServerHandler({
         route: "/__mock-server__/delete-preset",
         method: "POST",
-        handler: resolver.resolve("./runtime/server/routes/__mock-server__/delete-preset.post"),
+        handler: resolver.resolve("./runtime/server/routes/delete-preset.post"),
       });
 
       setupDevToolsUI(nuxt, resolver);

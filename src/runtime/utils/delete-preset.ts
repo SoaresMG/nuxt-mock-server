@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import type { H3Event } from "h3";
 import consola from "consola";
-import type { MockPreset } from "../../types";
+import type { MockPreset } from "../types";
 import { useRuntimeConfig } from "#imports";
 
 export async function deletePreset(event: H3Event, preset: MockPreset): Promise<boolean> {

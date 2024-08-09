@@ -1,5 +1,5 @@
 import { defineEventHandler, getQuery, setCookie } from "h3";
-import { PRESET_COOKIE_KEY } from "../../utils/constants";
+import { PRESET_COOKIE_KEY } from "../../utils";
 
 export default defineEventHandler((event) => {
   const query = getQuery(event);

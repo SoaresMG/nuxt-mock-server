@@ -3,7 +3,7 @@ import fs from "node:fs/promises";
 import type { H3Event } from "h3";
 import consola from "consola";
 import { AutoFormatter } from "../formatters";
-import type { MockPreset } from "../../types";
+import type { MockPreset } from "../types";
 import { notUndefinedOrNull } from "./not-undefined";
 import { useRuntimeConfig } from "#imports";
 
@@ -12,7 +12,7 @@ const getEntry = (dirent: Dirent) => {
   return formatter.getEntry(dirent.name);
 };
 
-export async function getAllMockPresets(event: H3Event) {
+export async function getPresets(event: H3Event) {
   const { mockServer } = useRuntimeConfig(event);
 
   if (!mockServer || !mockServer.enabled || !mockServer.pathMatch || !mockServer.mockDir) {

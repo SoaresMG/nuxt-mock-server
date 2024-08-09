@@ -1,9 +1,9 @@
-import type { MockEntry, MockRequest } from "../../types";
+import type { MockEntry, MockRequest } from "../types";
 import { Formatter } from "./base";
 
-export class JsonFormatter extends Formatter {
+export class TextFormatter extends Formatter {
   override async create(request: MockRequest) {
-    const data = await request.response.json();
+    const data = await request.response.text();
 
     const [entry] = await Promise.all(
       [
@@ -34,18 +34,22 @@ export class JsonFormatter extends Formatter {
       return;
     }
 
-    return await this.processRaw(raw);
+    return this.processRaw(raw);
   }
 
   override async processEntry(entry: MockEntry) {
-    return this.createResponse(JSON.stringify(entry.data), entry.meta);
+    this.assertEntryAsString(entry.data);
+    return this.createResponse(entry.data, entry.meta);
   }
 
   override assertEntry(entry: MockEntry | undefined, path: string): asserts entry is MockEntry {
     super.assertEntry(entry, path);
+    this.assertEntryAsString(entry.data);
+  }
 
-    if (typeof entry.data !== "object") {
-      throw new TypeError(`Expected data to be an object for ${path}`);
+  protected assertEntryAsString(data: unknown): asserts data is string {
+    if (typeof data !== "string") {
+      throw new TypeError("Expected data to be a string");
     }
   }
 }

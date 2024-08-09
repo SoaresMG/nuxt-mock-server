@@ -1,7 +1,7 @@
 import consola from "consola";
-import { AutoFormatter } from "../formatters";
+import { AutoFormatter } from "../../formatters";
 import type { FormatterDataType } from "../../types";
-import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../utils/constants";
+import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../../utils";
 import { defineErrorHandler, definePresetHandler } from "../handlers";
 import { defineNitroPlugin, useRuntimeConfig } from "#imports";
 
