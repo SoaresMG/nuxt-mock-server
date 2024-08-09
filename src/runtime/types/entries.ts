@@ -3,12 +3,18 @@ export type FormatterDataType = "application/json" | "application/xml" | "text/p
 export interface MockMeta {
   path: string;
   lastModified: Date;
+  preset: string;
   headers: Record<string, string> & { "content-type": FormatterDataType; };
 }
 
 export interface MockEntry {
   meta: MockMeta;
   data: string | Buffer;
+}
+
+export interface MockPreset {
+  name: string;
+  entries: MockEntry[];
 }
 
 export interface MockRequest {

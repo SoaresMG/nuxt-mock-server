@@ -1,33 +1,28 @@
 import consola from "consola";
-import { defineErrorHandler } from "../utils/define-error-handler";
 import { AutoFormatter } from "../formatters";
 import type { FormatterDataType } from "../../types";
+import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../utils/constants";
+import { defineErrorHandler, definePresetHandler } from "../handlers";
 import { defineNitroPlugin, useRuntimeConfig } from "#imports";
-
-const mockedHeader = {
-  ignore: "IGNORE",
-  found: "FOUND",
-  created: "CREATED",
-};
 
 export default defineNitroPlugin((nitro) => {
   const { mockServer } = useRuntimeConfig();
 
-  if (!mockServer || !mockServer.enabled || !mockServer.pathMatch || !mockServer.mockDir) {
+  if (!mockServer || !mockServer.enabled || !mockServer.pathMatch || !mockServer.mockDir || !mockServer.preset) {
     return;
   }
 
   const routeRegExp = new RegExp(mockServer.pathMatch);
 
-  const formatter = new AutoFormatter(mockServer.mockDir, consola.error);
-
-  nitro.hooks.hook("request", defineErrorHandler(async (event) => {
+  nitro.hooks.hook("request", defineErrorHandler(definePresetHandler(async (event) => {
     if (
       !routeRegExp.test(event.path)
-      || event.headers.get("X-MOCKED") === mockedHeader.ignore
+      || event.headers.get(MAIN_HEADER_KEY) === MAIN_HEADER_VALUE.IGNORE
     ) {
       return;
     }
+
+    const formatter = new AutoFormatter(`${mockServer.mockDir!}/${event.context.preset}`, consola.error);
 
     const mockResponse = await formatter.get(event.path);
 
@@ -45,13 +40,14 @@ export default defineNitroPlugin((nitro) => {
       method: "GET",
       cache: "no-cache",
       headers: {
-        "X-MOCKED": mockedHeader.ignore,
+        [MAIN_HEADER_KEY]: MAIN_HEADER_VALUE.IGNORE,
       },
     });
 
     if (localResponse.ok) {
       const { body, headers, status } = await formatter.create({
         meta: {
+          preset: event.context.preset,
           path: event.path,
           lastModified: new Date(),
           headers: {
@@ -67,7 +63,7 @@ export default defineNitroPlugin((nitro) => {
         status,
       }));
 
-      event.headers.set("X-MOCKED", mockedHeader.created);
+      event.headers.set(MAIN_HEADER_KEY, MAIN_HEADER_VALUE.CREATED);
     }
-  }));
+  }, { defaultPreset: mockServer.preset })));
 });

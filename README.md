@@ -55,8 +55,6 @@ To have it fixed set it as `path.resolve(__dirname, "mocks")`. This is something
 
 ## Roadmap
 
-🚀 &nbsp;**OPEN** &nbsp;&nbsp;📉 &nbsp;&nbsp;**4 / 14** goals completed **(28%)** &nbsp;&nbsp;📅 &nbsp;&nbsp;**Sun Aug 5 2024**
-
 | Status | Topic | Goal | Milestone |
 | :---: | :--- | :--- | :--- |
 | ✔ | Formats | Support `application/json` | Q3 2024
@@ -67,11 +65,11 @@ To have it fixed set it as `path.resolve(__dirname, "mocks")`. This is something
 | ❌ | Tests | Add proper tests | Q3 2024
 | ❌ | DX | Improve docs | Q3 2024
 | ❌ | DX | Non-root (e.g monorepo) support for mock directory | Q3 2024
-| ❌ | DX | Add devtools page | Q3 2024
-| ❌ | DX | Add mock updates through devtools | Q3 2024
+| ✔ | DX | Add devtools page | Q3 2024
+| ✔ | DX | Add mock updates through devtools | Q3 2024
 | ❌ | Formats | Custom formats | Q4 2024
 | ❌ | Core | Iterate `prerender` routes to generate mocks on server init | Q4 2024
-| ❌ | Core | Support presets (mock bundles that can be switched) | Q4 2024
+| ✔ | Core | Support presets (mock bundles that can be switched) | Q4 2024
 | ❌ | Core | Support remote shared servers | Q1 2025
 
 See the [open issues](https://github.com/SoaresMG/nuxt-mock-server/issues) for a full list of proposed features (and known issues).

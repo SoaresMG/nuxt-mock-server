@@ -2,6 +2,7 @@ import { resolve } from "node:path";
 import { mkdir, writeFile, stat, readFile } from "node:fs/promises";
 import superjson from "superjson";
 import type { MockRequest, MockEntry, MockResponse, MockMeta } from "../../types";
+import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../utils/constants";
 
 async function exists(path: string) {
   try {
@@ -76,7 +77,7 @@ export abstract class Formatter implements BaseFormatter {
       body: data,
       headers: {
         ...meta.headers,
-        "X-MOCKED": "FOUND",
+        [MAIN_HEADER_KEY]: MAIN_HEADER_VALUE.FOUND,
         "Last-Modified": meta.lastModified.toUTCString(),
       },
       status: 200,
