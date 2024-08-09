@@ -1,7 +1,5 @@
 import { defineEventHandler, deleteCookie, getQuery, setCookie } from "h3";
-import { PRESET_COOKIE_KEY } from "../../utils/constants";
-import { getAllMockPresets } from "../../utils";
-import { deletePreset } from "../../utils/delete-preset";
+import { PRESET_COOKIE_KEY, getPresets, deletePreset } from "../../utils";
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event);
@@ -10,7 +8,7 @@ export default defineEventHandler(async (event) => {
     return;
   }
 
-  const presets = await getAllMockPresets(event);
+  const presets = await getPresets(event);
 
   const deletingPreset = presets.find(preset => preset.name === query.preset);
   const newPreset = presets.find(preset => preset.name !== query.preset);

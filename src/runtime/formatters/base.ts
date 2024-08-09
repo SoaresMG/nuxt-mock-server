@@ -1,8 +1,8 @@
 import { resolve } from "node:path";
 import { mkdir, writeFile, stat, readFile } from "node:fs/promises";
 import superjson from "superjson";
-import type { MockRequest, MockEntry, MockResponse, MockMeta } from "../../types";
-import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../utils/constants";
+import type { MockRequest, MockEntry, MockResponse, MockMeta } from "../types";
+import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../utils";
 
 async function exists(path: string) {
   try {

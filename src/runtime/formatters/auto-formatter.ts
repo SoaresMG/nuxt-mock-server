@@ -1,4 +1,4 @@
-import type { FormatterDataType, MockRequest, MockEntry, MockResponse } from "../../types";
+import type { FormatterDataType, MockRequest, MockEntry, MockResponse } from "../types";
 import type { BaseFormatter, OnErrorCallback } from "./base";
 import { JsonFormatter } from "./json-formatter";
 import { TextFormatter } from "./text-formatter";
