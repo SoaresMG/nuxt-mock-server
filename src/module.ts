@@ -70,15 +70,14 @@ export default defineNuxtModule<ModuleOptions>({
 
     addTypeTemplate({
       filename: "module/mock-server.d.ts",
-      getContents: () => `
-    declare module "@nuxt/schema" {
-      interface RuntimeConfig {
-          mockServer?: import("${resolver.resolve("./module")}").ModuleOptions;
-      }
-    }
+      getContents: () => `declare module "@nuxt/schema" {
+  interface RuntimeConfig {
+      mockServer?: import("${resolver.resolve("./module")}").ModuleOptions;
+  }
+}
 
-    export {};
-              `,
+export {};
+`,
       write: true,
     });
 
@@ -97,6 +96,12 @@ export default defineNuxtModule<ModuleOptions>({
         route: "/__mock-server__/set-preset",
         method: "POST",
         handler: resolver.resolve("./runtime/server/routes/__mock-server__/set-preset.post"),
+      });
+
+      addServerHandler({
+        route: "/__mock-server__/delete-preset",
+        method: "POST",
+        handler: resolver.resolve("./runtime/server/routes/__mock-server__/delete-preset.post"),
       });
 
       setupDevToolsUI(nuxt, resolver);

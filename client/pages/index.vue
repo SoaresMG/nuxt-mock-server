@@ -1,27 +1,5 @@
 <template>
   <div>
-    <dialog
-      :open="isCreatingPreset"
-      class="absolute top-[100px] z-10 w-[250px] bg-white dark:bg-black dark:bg-dark-700 bg-light-200 border n-border-base p4 rounded transition-all"
-    >
-      <form method="dialog">
-        <input
-          id="first_name"
-          type="text"
-          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          required
-          placeholder="My new preset's name..."
-        >
-        <div class="w-full mt-4 flex flex-justify-end">
-          <button class="n-icon-button n-button">
-            <NIcon
-              icon="carbon:save"
-              class="group-hover:text-green-500"
-            />
-          </button>
-        </div>
-      </form>
-    </dialog>
     <header class="sticky top-0 z-2 px-4 pt-4">
       <div
         class="flex justify-between items-start"
@@ -107,8 +85,8 @@
             <button
               text-lg=""
               type="button"
-              class="n-icon-button n-button n-transition n-disabled:n-disabled"
-              @click="loadPresets"
+              class="n-icon-button n-button n-transition hover:n-bg-active"
+              @click="() => loadPresets()"
             >
               <NIcon
                 icon="carbon:reset"
@@ -123,7 +101,7 @@
             <button
               text-lg=""
               type="button"
-              class="n-icon-button n-button n-transition n-disabled:n-disabled"
+              class="n-icon-button n-button n-transition hover:n-bg-active"
               @click="isCreatingPreset = true"
             >
               <NIcon
@@ -159,10 +137,10 @@
       <main class="mx-auto flex flex-col w-full bg-white dark:bg-black dark:bg-dark-700 bg-light-200 ">
         <NLoading v-if="isLoading" />
         <div
-          v-if="currentTab === 'mocks'"
+          v-else-if="currentTab === 'mocks'"
           class="space-y-5"
         >
-          <div>
+          <div class="p2">
             <h2 class="text-lg mb-1">
               Presets
             </h2>
@@ -184,7 +162,7 @@
             </template>
             <div class="px-3 py-2 space-y-5">
               <div class="flex space-x-5 ">
-                <div class="w-40 flex flex-col">
+                <div class="w-[200px] flex flex-col">
                   <div>
                     <div class="font-bold text-sm mb-1">
                       Mocked paths
@@ -193,24 +171,33 @@
                       [{{ preset.entries.length }}] mocked endpoints included in the {{ preset.name }} preset.
                     </div>
                   </div>
-                  <div class="font-bold text-sm mb-1 flex mt-4">
-                    Set as current preset
-                    <VTooltip>
-                      <button
-                        text-lg=""
-                        type="button"
-                        class="n-icon-button n-button n-transition n-disabled:n-disabled"
-                        @click="() => setPreset(preset.name)"
-                      >
-                        <NIcon
-                          icon="carbon:checkmark-filled"
-                          class="group-hover:text-green-500"
-                        />
-                      </button>
-                      <template #popper>
-                        Set preset as {{ preset.name }}
-                      </template>
-                    </VTooltip>
+                  <div class="font-bold flex mt-2">
+                    <button
+                      text-lg=""
+                      type="button"
+                      class="w-full flex-inline flex-justify-between flex-items-center p2 text-align-left text-sm n-button n-transition hover:n-bg-active"
+                      @click="() => setPreset(preset.name)"
+                    >
+                      Set as current preset
+                      <NIcon
+                        icon="carbon:checkmark-filled"
+                        class="group-hover:text-green-500"
+                      />
+                    </button>
+                  </div>
+                  <div class="font-bold flex mt-2">
+                    <button
+                      text-lg=""
+                      type="button"
+                      class="w-full flex-inline flex-justify-between flex-items-center p2 text-align-left text-sm n-button n-transition hover:n-bg-active"
+                      @click="isDeletingPreset = preset.name"
+                    >
+                      Delete preset
+                      <NIcon
+                        icon="carbon:trash-can"
+                        class="group-hover:text-green-500"
+                      />
+                    </button>
                   </div>
                 </div>
                 <div class="flex-grow w--0">
@@ -226,7 +213,7 @@
         </div>
 
         <div
-          v-if="currentTab === 'docs'"
+          v-else-if="currentTab === 'docs'"
           class="space-y-5"
         >
           <div>
@@ -244,6 +231,43 @@
         </div>
       </main>
     </div>
+
+    <ModalDialog :is-open="isCreatingPreset">
+      <input
+        id="first_name"
+        v-model="newPresetName"
+        type="text"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        required
+        placeholder="My new preset's name..."
+      >
+      <div class="w-full mt-2 flex flex-justify-end">
+        <button
+          class="n-icon-button n-button"
+          @click="createNewPreset"
+        >
+          <NIcon
+            icon="carbon:save"
+            class="group-hover:text-green-500"
+          />
+        </button>
+      </div>
+    </ModalDialog>
+    <ModalDialog :is-open="isDeletingPreset">
+      <span class="text-md">Are you sure you want to delete the following preset?</span>
+      <pre class="text-lg mt-2">{{ isDeletingPreset && capitalize(isDeletingPreset) }}</pre>
+      <div class="w-full mt-2 flex flex-justify-end">
+        <button
+          class="n-icon-button n-button"
+          @click="onDeletePresetHandler"
+        >
+          <NIcon
+            icon="carbon:trash-can"
+            class="group-hover:text-green-500"
+          />
+        </button>
+      </div>
+    </ModalDialog>
   </div>
 </template>
 
@@ -264,10 +288,12 @@ const tabs = ["mocks", "docs"] as const;
 
 const currentTab = useLocalStorage<typeof tabs[number]>("nuxt-mock-server:tab", "mocks");
 
-const { presets, loadPresets, setPreset, isLoading } = usePresets();
+const { presets, loadPresets, setPreset, deletePreset, isLoading } = usePresets();
 const { moduleMeta } = useModuleMeta();
 
 const isCreatingPreset = ref(false);
+const isDeletingPreset = ref<string | false>(false);
+const newPresetName = ref<string | null>(null);
 
 onMounted(async () => {
   await loadPresets();
@@ -280,6 +306,24 @@ useHead({
 });
 
 const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+
+async function createNewPreset() {
+  if (!newPresetName.value?.replace("/", "")) {
+    return;
+  }
+
+  await setPreset(newPresetName.value);
+
+  isCreatingPreset.value = false;
+  newPresetName.value = null;
+}
+
+async function onDeletePresetHandler() {
+  if (isDeletingPreset.value) {
+    await deletePreset(isDeletingPreset.value);
+    isDeletingPreset.value = false;
+  }
+}
 </script>
 
 <style>

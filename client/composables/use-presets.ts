@@ -3,13 +3,16 @@ import type { MockPreset } from "../../src/runtime/types";
 import { useRpc } from "./use-rpc";
 
 export function usePresets() {
-  const { appFetch, appReload } = useRpc();
+  const { appFetch } = useRpc();
 
   const isLoading = ref(true);
   const presets = ref<MockPreset[]>([]);
 
-  async function loadPresets() {
-    isLoading.value = true;
+  async function loadPresets(setIsLoading = true) {
+    if (setIsLoading) {
+      isLoading.value = true;
+    }
+
     try {
       if (appFetch.value) {
         presets.value = await appFetch.value("/__mock-server__/presets");
@@ -28,7 +31,25 @@ export function usePresets() {
     try {
       if (appFetch.value) {
         await appFetch.value("/__mock-server__/set-preset", { method: "POST", query: { preset: name } });
-        appReload.value();
+        await appFetch.value("/");
+        await loadPresets(false);
+      }
+    }
+    catch (e) {
+      console.error(e);
+    }
+    finally {
+      isLoading.value = false;
+    }
+  }
+
+  async function deletePreset(name: string) {
+    isLoading.value = true;
+    try {
+      if (appFetch.value) {
+        await appFetch.value("/__mock-server__/delete-preset", { method: "POST", query: { preset: name } });
+        await appFetch.value("/");
+        await loadPresets(false);
       }
     }
     catch (e) {
@@ -44,5 +65,6 @@ export function usePresets() {
     presets,
     loadPresets,
     setPreset,
+    deletePreset,
   };
 }
