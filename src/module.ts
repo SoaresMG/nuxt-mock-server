@@ -9,6 +9,7 @@ import {
 import { readPackageJSON } from "pkg-types";
 import { setupDevToolsUI } from "./devtools";
 import type { ModulePackageInfo } from "./runtime/types";
+import { DEFAULT_PRESET } from "./runtime/server/utils/constants";
 
 const logger = useLogger("@nuxt/mock-server");
 
@@ -17,11 +18,16 @@ export interface ModuleOptions {
   pathMatch?: string;
   mockDir?: string;
   devtools?: boolean;
+  preset?: string;
+}
+
+interface AugmentedModuleOptions extends ModuleOptions {
+  package: ModulePackageInfo;
 }
 
 declare module "@nuxt/schema" {
   interface RuntimeConfig {
-    mockServer: ModuleOptions & { package: ModulePackageInfo; };
+    mockServer: AugmentedModuleOptions;
   }
 }
 
@@ -35,6 +41,7 @@ export default defineNuxtModule<ModuleOptions>({
     pathMatch: "^\\/api\\/.*$",
     mockDir: "mocks",
     devtools: true,
+    preset: DEFAULT_PRESET,
   },
   async setup(options, nuxt) {
     if (
@@ -77,13 +84,19 @@ export default defineNuxtModule<ModuleOptions>({
 
     if (options.devtools) {
       addServerHandler({
-        route: "/__mock-server__/entries",
-        handler: resolver.resolve("./runtime/server/routes/__mock-server__/entries"),
+        route: "/__mock-server__/presets",
+        handler: resolver.resolve("./runtime/server/routes/__mock-server__/presets"),
       });
 
       addServerHandler({
         route: "/__mock-server__/meta",
         handler: resolver.resolve("./runtime/server/routes/__mock-server__/meta"),
+      });
+
+      addServerHandler({
+        route: "/__mock-server__/set-preset",
+        method: "POST",
+        handler: resolver.resolve("./runtime/server/routes/__mock-server__/set-preset.post"),
       });
 
       setupDevToolsUI(nuxt, resolver);

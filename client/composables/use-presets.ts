@@ -1,18 +1,18 @@
 import { ref } from "vue";
-import type { MockEntry } from "../../src/runtime/types";
+import type { MockPreset } from "../../src/runtime/types";
 import { useRpc } from "./use-rpc";
 
-export function useEntries() {
+export function usePresets() {
   const { appFetch } = useRpc();
 
   const isLoading = ref(true);
-  const entries = ref<MockEntry[]>([]);
+  const presets = ref<MockPreset[]>([]);
 
-  async function loadEntries() {
+  async function loadPresets() {
     isLoading.value = true;
     try {
       if (appFetch.value) {
-        entries.value = await appFetch.value("/__mock-server__/entries");
+        presets.value = await appFetch.value("/__mock-server__/presets");
       }
     }
     catch (e) {
@@ -25,7 +25,7 @@ export function useEntries() {
 
   return {
     isLoading,
-    entries,
-    loadEntries,
+    presets,
+    loadPresets,
   };
 }
