@@ -1,5 +1,27 @@
 <template>
   <div>
+    <dialog
+      :open="isCreatingPreset"
+      class="absolute top-[100px] z-10 w-[250px] bg-white dark:bg-black dark:bg-dark-700 bg-light-200 border n-border-base p4 rounded transition-all"
+    >
+      <form method="dialog">
+        <input
+          id="first_name"
+          type="text"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          required
+          placeholder="My new preset's name..."
+        >
+        <div class="w-full mt-4 flex flex-justify-end">
+          <button class="n-icon-button n-button">
+            <NIcon
+              icon="carbon:save"
+              class="group-hover:text-green-500"
+            />
+          </button>
+        </div>
+      </form>
+    </dialog>
     <header class="sticky top-0 z-2 px-4 pt-4">
       <div
         class="flex justify-between items-start"
@@ -97,6 +119,22 @@
               Refresh
             </template>
           </VTooltip>
+          <VTooltip>
+            <button
+              text-lg=""
+              type="button"
+              class="n-icon-button n-button n-transition n-disabled:n-disabled"
+              @click="isCreatingPreset = true"
+            >
+              <NIcon
+                icon="carbon:intent-request-create"
+                class="group-hover:text-green-500"
+              />
+            </button>
+            <template #popper>
+              Create Preset
+            </template>
+          </VTooltip>
         </div>
         <div class="items-center space-x-3 hidden lg:flex">
           <div class="opacity-80 text-sm">
@@ -145,13 +183,34 @@
               </h3>
             </template>
             <div class="px-3 py-2 space-y-5">
-              <div class="flex space-x-5">
-                <div class="w-40">
-                  <div class="font-bold text-sm mb-1">
-                    Mocked paths
+              <div class="flex space-x-5 ">
+                <div class="w-40 flex flex-col">
+                  <div>
+                    <div class="font-bold text-sm mb-1">
+                      Mocked paths
+                    </div>
+                    <div class="opacity-40 text-xs max-w-60">
+                      [{{ preset.entries.length }}] mocked endpoints included in the {{ preset.name }} preset.
+                    </div>
                   </div>
-                  <div class="opacity-40 text-xs max-w-60">
-                    [{{ preset.entries.length }}] mocked endpoints included in the {{ preset.name }} preset.
+                  <div class="font-bold text-sm mb-1 flex mt-4">
+                    Set as current preset
+                    <VTooltip>
+                      <button
+                        text-lg=""
+                        type="button"
+                        class="n-icon-button n-button n-transition n-disabled:n-disabled"
+                        @click="() => setPreset(preset.name)"
+                      >
+                        <NIcon
+                          icon="carbon:checkmark-filled"
+                          class="group-hover:text-green-500"
+                        />
+                      </button>
+                      <template #popper>
+                        Set preset as {{ preset.name }}
+                      </template>
+                    </VTooltip>
                   </div>
                 </div>
                 <div class="flex-grow w--0">
@@ -189,7 +248,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useLocalStorage } from "@vueuse/core";
 import { usePresets } from "../composables/use-presets";
 import { useModuleMeta } from "../composables/use-module-meta";
@@ -205,8 +264,10 @@ const tabs = ["mocks", "docs"] as const;
 
 const currentTab = useLocalStorage<typeof tabs[number]>("nuxt-mock-server:tab", "mocks");
 
-const { presets, loadPresets, isLoading } = usePresets();
+const { presets, loadPresets, setPreset, isLoading } = usePresets();
 const { moduleMeta } = useModuleMeta();
+
+const isCreatingPreset = ref(false);
 
 onMounted(async () => {
   await loadPresets();
