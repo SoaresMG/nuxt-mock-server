@@ -1,5 +1,11 @@
 # nuxt-mock-server
 
+## 1.2.0
+
+### Minor Changes
+
+- [#35](https://github.com/SoaresMG/nuxt-mock-server/pull/35) [`99fcfe8`](https://github.com/SoaresMG/nuxt-mock-server/commit/99fcfe875783262565811ce9e2d4dadcc88a54d5) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Add presets and preset management tools
+
 ## 1.1.1
 
 ### Patch Changes
