@@ -23,5 +23,7 @@ jobs:
         run: yarn install --immutable
       - name: Lint
         run: yarn lint:ci
+      - name: Typecheck
+        run: yarn test:types
       - name: Verify commits
         run: npx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD --verbose
