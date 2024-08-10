@@ -2,9 +2,9 @@ import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import type { H3Event } from "h3";
 import consola from "consola";
-import { AutoFormatter } from "../formatters";
-import type { MockPreset } from "../types";
-import { notUndefinedOrNull } from "./not-undefined";
+import { AutoFormatter } from "../../formatters";
+import type { MockPreset } from "../../types";
+import { notUndefinedOrNull } from "../../utils";
 import { useRuntimeConfig } from "#imports";
 
 const getEntry = (dirent: Dirent) => {

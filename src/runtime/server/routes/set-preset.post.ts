@@ -1,12 +1,13 @@
-import { defineEventHandler, getQuery, setCookie } from "h3";
-import { PRESET_COOKIE_KEY } from "../../utils";
+import { defineEventHandler, getQuery } from "h3";
+import { useMockServer } from "../composables";
 
-export default defineEventHandler((event) => {
+export default defineEventHandler(async (event) => {
   const query = getQuery(event);
+  const { setPreset } = useMockServer(event);
 
   if (!query?.preset || typeof query.preset !== "string") {
     return;
   }
 
-  setCookie(event, PRESET_COOKIE_KEY, query.preset);
+  await setPreset(query.preset);
 });

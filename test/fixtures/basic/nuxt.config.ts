@@ -1,11 +1,7 @@
-import MyModule from "../../../src/module";
+import MockServerModule from "../../../src/module";
 
 export default defineNuxtConfig({
   modules: [
-    MyModule,
+    MockServerModule,
   ],
-  mocks: {
-    enabled: true,
-    pathMatch: "^/api/.*$",
-  },
 });

@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { useFetch } from "#imports";
+import { useFetch } from "#app";
 
 await useFetch("/api/initial-data");
 </script>

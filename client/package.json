@@ -1,6 +1,9 @@
 {
   "name": "nuxt-mock-server-client",
   "private": true,
+  "scripts": {
+    "test:types": "nuxi typecheck"
+  },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.37",
     "@nuxt/devtools": "^1.3.9",
