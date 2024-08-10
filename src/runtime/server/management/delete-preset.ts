@@ -5,7 +5,11 @@ import { PRESET_COOKIE_KEY } from "../../utils/constants";
 import { getPresets } from "./get-presets";
 import { useRuntimeConfig } from "#imports";
 
-export async function deletePreset(event: H3Event, name: string): Promise<boolean> {
+export interface DeletePresetOptions {
+  changeTo?: string | false;
+}
+
+export async function deletePreset(event: H3Event, name: string, options: DeletePresetOptions = {}): Promise<boolean> {
   const { mockServer } = useRuntimeConfig(event);
 
   if (!mockServer || !mockServer.enabled || !mockServer.mockDir) {
@@ -15,7 +19,6 @@ export async function deletePreset(event: H3Event, name: string): Promise<boolea
   const presets = await getPresets(event);
 
   const deletingPreset = presets.find(preset => preset.name === name);
-  const newPreset = presets.find(preset => preset.name !== name);
 
   if (deletingPreset) {
     try {
@@ -32,11 +35,14 @@ export async function deletePreset(event: H3Event, name: string): Promise<boolea
     }
   }
 
-  if (newPreset) {
-    setCookie(event, PRESET_COOKIE_KEY, newPreset.name);
-  }
-  else {
-    deleteCookie(event, PRESET_COOKIE_KEY);
+  if (options.changeTo !== false) {
+    const newPreset = options.changeTo ?? presets.find(preset => preset.name !== name)?.name;
+    if (newPreset) {
+      setCookie(event, PRESET_COOKIE_KEY, newPreset);
+    }
+    else {
+      deleteCookie(event, PRESET_COOKIE_KEY);
+    }
   }
 
   return true;
