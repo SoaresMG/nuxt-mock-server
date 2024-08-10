@@ -1,4 +1,4 @@
-import { definePresetHandler } from "../../handlers";
-import { getAllMockPresets } from "../../utils";
+import { getPresets } from "../utils";
+import { definePresetHandler } from "../handlers";
 
-export default definePresetHandler(getAllMockPresets);
+export default definePresetHandler(getPresets);

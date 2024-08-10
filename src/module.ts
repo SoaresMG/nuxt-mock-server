@@ -2,14 +2,15 @@ import {
   defineNuxtModule,
   createResolver,
   addServerPlugin,
-  addTypeTemplate,
   useLogger,
   addServerHandler,
 } from "@nuxt/kit";
 import { readPackageJSON } from "pkg-types";
 import { setupDevToolsUI } from "./devtools";
-import type { ModulePackageInfo } from "./runtime/types";
 import { DEFAULT_PRESET } from "./runtime/utils";
+import { setupAutoImports } from "./auto-imports";
+import { setupGeneratedTypes } from "./generated-types";
+import type { ModulePackageInfo } from "./runtime/types";
 
 const logger = useLogger("@nuxt/mock-server");
 
@@ -19,15 +20,12 @@ export interface ModuleOptions {
   mockDir?: string;
   devtools?: boolean;
   preset?: string;
-}
-
-interface AugmentedModuleOptions extends ModuleOptions {
-  package: ModulePackageInfo;
+  package?: ModulePackageInfo;
 }
 
 declare module "@nuxt/schema" {
   interface RuntimeConfig {
-    mockServer: AugmentedModuleOptions;
+    mockServer?: ModuleOptions;
   }
 }
 
@@ -68,18 +66,8 @@ export default defineNuxtModule<ModuleOptions>({
 
     addServerPlugin(resolver.resolve("./runtime/server/plugins/mock-processor"));
 
-    addTypeTemplate({
-      filename: "module/mock-server.d.ts",
-      getContents: () => `declare module "@nuxt/schema" {
-  interface RuntimeConfig {
-      mockServer?: import("${resolver.resolve("./module")}").ModuleOptions;
-  }
-}
-
-export {};
-`,
-      write: true,
-    });
+    setupGeneratedTypes(nuxt, resolver);
+    setupAutoImports(nuxt, resolver);
 
     if (options.devtools) {
       addServerHandler({

@@ -1,11 +1,12 @@
 import consola from "consola";
+import { useRuntimeConfig } from "@nuxt/kit";
+import type { NitroAppPlugin } from "nitropack";
 import { AutoFormatter } from "../../formatters";
 import type { FormatterDataType } from "../../types";
 import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../../utils";
 import { defineErrorHandler, definePresetHandler } from "../handlers";
-import { defineNitroPlugin, useRuntimeConfig } from "#imports";
 
-export default defineNitroPlugin((nitro) => {
+const mockProcessorPlugin: NitroAppPlugin = (nitro) => {
   const { mockServer } = useRuntimeConfig();
 
   if (!mockServer || !mockServer.enabled || !mockServer.pathMatch || !mockServer.mockDir || !mockServer.preset) {
@@ -66,4 +67,6 @@ export default defineNitroPlugin((nitro) => {
       event.headers.set(MAIN_HEADER_KEY, MAIN_HEADER_VALUE.CREATED);
     }
   }, { defaultPreset: mockServer.preset })));
-});
+};
+
+export default mockProcessorPlugin;

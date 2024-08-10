@@ -1,6 +1,5 @@
 import { consola } from "consola";
-import type { EventHandler, EventHandlerRequest, H3Event } from "h3";
-import { defineEventHandler } from "#imports";
+import { defineEventHandler, type EventHandler, type EventHandlerRequest, type H3Event } from "h3";
 
 export const defineErrorHandler = <T extends EventHandlerRequest, D>(
   handler: EventHandler<T, D>,
