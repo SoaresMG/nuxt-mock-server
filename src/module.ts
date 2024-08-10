@@ -42,6 +42,10 @@ export default defineNuxtModule<ModuleOptions>({
     preset: DEFAULT_PRESET,
   },
   async setup(options, nuxt) {
+    const resolver = createResolver(import.meta.url);
+    setupGeneratedTypes(nuxt, resolver);
+    setupAutoImports(nuxt, resolver);
+
     if (
       typeof options.enabled === "undefined"
         ? !nuxt.options.dev
@@ -49,8 +53,6 @@ export default defineNuxtModule<ModuleOptions>({
     ) {
       return;
     }
-
-    const resolver = createResolver(import.meta.url);
 
     logger.info(`Mock server is enabled for ${options.pathMatch}`);
 
@@ -65,9 +67,6 @@ export default defineNuxtModule<ModuleOptions>({
     };
 
     addServerPlugin(resolver.resolve("./runtime/server/plugins/mock-processor"));
-
-    setupGeneratedTypes(nuxt, resolver);
-    setupAutoImports(nuxt, resolver);
 
     if (options.devtools) {
       addServerHandler({
