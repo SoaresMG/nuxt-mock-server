@@ -36,6 +36,13 @@ export default defineNuxtConfig({
 
   mocks: {
     enabled: true,
+    auto: false,
+  },
+
+  nitro: {
+    typescript: {
+      internalPaths: true,
+    },
   },
 
   compatibilityDate: "2024-08-04",

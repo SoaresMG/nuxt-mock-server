@@ -1,2 +1,5 @@
 imports.autoImport=false
 typescript.includeWorkspace=true
+typescript.strict=true
+typescript.tsConfig.compilerOptions.alwaysStrict=true
+typescript.tsConfig.compilerOptions.noImplicitAny=true

@@ -9,10 +9,6 @@ export default defineEventHandler(async (event) => {
 
   const slug = query.slug?.toString();
 
-  if (slug?.includes("devtools") || slug === "test-error-slug") {
-    throw new Error(`The page with slug "${slug}" does not exist`);
-  }
-
   return {
     slug,
     id: faker.string.uuid(),

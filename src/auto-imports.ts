@@ -6,4 +6,9 @@ export function setupAutoImports(nuxt: Nuxt, resolver: Resolver) {
     name: "useMockServer",
     from: resolver.resolve("./runtime/server/composables/use-mock-server"),
   }]);
+
+  addServerImports([{
+    name: "defineMockInterceptorHandler",
+    from: resolver.resolve("./runtime/server/handlers/define-mock-interceptor-handler"),
+  }]);
 }

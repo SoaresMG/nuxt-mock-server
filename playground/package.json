@@ -5,7 +5,6 @@
   "scripts": {
     "dev": "nuxi dev",
     "build": "nuxi build",
-    "generate": "nuxi generate",
-    "test:types": "nuxi typecheck"
+    "generate": "nuxi generate"
   }
 }
