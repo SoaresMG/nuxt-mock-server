@@ -41,10 +41,21 @@ export default defineNuxtModule<ModuleOptions>({
     devtools: true,
     preset: DEFAULT_PRESET,
   },
-  async setup(options, nuxt) {
+  async setup(_options, nuxt) {
     const resolver = createResolver(import.meta.url);
     setupGeneratedTypes(nuxt, resolver);
     setupAutoImports(nuxt, resolver);
+
+    const { name, version } = await readPackageJSON(resolver.resolve("../package.json"));
+
+    const options = nuxt.options.runtimeConfig.mockServer = {
+      ..._options,
+      ...nuxt.options.runtimeConfig.mockServer || {},
+      package: {
+        name,
+        version,
+      },
+    };
 
     if (
       typeof options.enabled === "undefined"
@@ -55,16 +66,6 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     logger.info(`Mock server is enabled for ${options.pathMatch}`);
-
-    const { name, version } = await readPackageJSON(resolver.resolve("../package.json"));
-
-    nuxt.options.runtimeConfig.mockServer = {
-      ...options,
-      package: {
-        name,
-        version,
-      },
-    };
 
     addServerPlugin(resolver.resolve("./runtime/server/plugins/mock-processor"));
 
