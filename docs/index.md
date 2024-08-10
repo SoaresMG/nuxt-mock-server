@@ -5,21 +5,13 @@ layout: home
 hero:
   name: "nuxt-mock-server"
   text: "Module that easily adds a mock server to your Nuxt project"
-  tagline: My great project tagline
+  tagline: Seemless mock server integration for your Nuxt project.
   actions:
     - theme: brand
-      text: Markdown Examples
-      link: /markdown-examples
+      text: Getting Started
+      link: /getting-started
     - theme: alt
-      text: API Examples
-      link: /api-examples
-
-features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+      text: Examples
+      link: /markdown-examples
 ---
 
