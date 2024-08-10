@@ -74,7 +74,8 @@
     "vite": "^5.4.0",
     "vitest": "^2.0.5",
     "vue": "^3.4.37",
-    "vue-router": "^4.4.3"
+    "vue-router": "^4.4.3",
+    "vue-tsc": "^2.0.29"
   },
   "packageManager": "yarn@4.4.0+sha256.5f228cb28f2edb97d8c3b667fb7b2fdcf06c46798e25ea889dad9e0b4bc2e2c1"
 }
