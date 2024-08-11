@@ -6,7 +6,6 @@ import type { FormatterDataType } from "../../types";
 import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../../utils";
 import { definePresetHandler } from "./define-preset-handler";
 import { defineErrorHandler } from "./define-error-handler";
-import { useNitroApp } from "#imports";
 
 export type InterceptRequestOptions = {
   defaultPreset?: string;
@@ -19,6 +18,7 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
 ): EventHandler<T, D> => defineErrorHandler(definePresetHandler(defineEventHandler<T>(async (event: H3Event) => {
   const { mockServer } = runtimeConfig;
 
+  // @ts-expect-error For some reason #imports isn't recognized ONLY when calling `tsc --noEmit` through `test:types`
   const nitro = useNitroApp();
 
   if (
