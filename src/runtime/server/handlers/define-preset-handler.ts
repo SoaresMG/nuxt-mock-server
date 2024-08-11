@@ -11,6 +11,7 @@ export const definePresetHandler = <T extends EventHandlerRequest, D>(
 ): EventHandler<T, D> =>
   defineEventHandler<T>(async (event: H3Event) => {
     const cookie = getCookie(event, PRESET_COOKIE_KEY);
+
     if (cookie) {
       event.context.preset = cookie;
       return handler(event);

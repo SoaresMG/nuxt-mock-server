@@ -13,9 +13,11 @@ export default function (nitro: NitroApp) {
   const routeRegExp = new RegExp(mockServer.pathMatch);
 
   // We can safely ignore the handler since inside the "request" hook we can return undefined and follow the normal request flow
-  nitro.hooks.hook("request", interceptRequest(() => undefined, runtimeConfig, {
-    routeRegExp: routeRegExp,
-    forceRouteMatch: false,
-    defaultPreset: mockServer.preset,
-  }));
+  nitro.hooks.hook("request", (event) => {
+    return interceptRequest(() => undefined, runtimeConfig, {
+      routeRegExp: routeRegExp,
+      forceRouteMatch: false,
+      defaultPreset: mockServer.preset,
+    })(event);
+  });
 };

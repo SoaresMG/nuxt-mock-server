@@ -71,6 +71,7 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
     }));
 
     event.headers.set(MAIN_HEADER_KEY, MAIN_HEADER_VALUE.CREATED);
+    return;
   }
 
   return handler(event);
