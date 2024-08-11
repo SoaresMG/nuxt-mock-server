@@ -1,9 +1,7 @@
-import type { Nuxt } from "nuxt/schema";
-import type { Resolver } from "@nuxt/kit";
 import type { ModulePackageInfo } from "./runtime/types";
 import { extendTypes } from "./kit";
 
-export function setupGeneratedTypes(nuxt: Nuxt, resolver: Resolver, packageInfo: ModulePackageInfo) {
+export function setupGeneratedTypes(packageInfo: ModulePackageInfo) {
   extendTypes(packageInfo, async ({ typesPath }) => {
     return `
 declare module "@nuxt/schema" {

@@ -1,13 +1,20 @@
 {
   "name": "nuxt-mock-server",
+  "type": "module",
   "version": "1.3.0",
   "description": "Module that easily adds a mock server to your Nuxt project",
   "author": "Leandro Soares",
   "license": "MIT",
-  "type": "module",
+  "packageManager": "pnpm@9.5.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SoaresMG/nuxt-mock-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SoaresMG/nuxt-mock-server/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "exports": {
     ".": {
@@ -16,20 +23,18 @@
       "require": "./dist/module.cjs"
     }
   },
-  "workspaces": [
-    "playground",
-    "client",
-    "./"
-  ],
   "main": "./dist/module.cjs",
   "types": "./dist/types.d.ts",
   "files": [
     "dist"
   ],
+  "workspaces": [
+    "client",
+    "./"
+  ],
   "scripts": {
     "client:build": "nuxi generate client",
-    "client:dev": "nuxi dev client --port 3300",
-    "build": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt-module-build build && yarn client:build",
+    "build": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt-module-build build && pnpm client:build",
     "dev": "nuxi dev playground",
     "dev:build": "nuxi build playground",
     "dev:prepare": "husky && nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
@@ -38,7 +43,7 @@
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:types": "tsc --noEmit",
-    "release": "yarn build && changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "dependencies": {
     "@nuxt/devtools-kit": "^1.3.9",
@@ -55,27 +60,23 @@
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@faker-js/faker": "^8.4.1",
-    "@iconify-json/carbon": "^1.1.37",
-    "@nuxt/devtools": "^1.3.9",
-    "@nuxt/devtools-ui-kit": "^1.3.9",
     "@nuxt/eslint-config": "^0.5.0",
     "@nuxt/kit": "^3.12.4",
     "@nuxt/module-builder": "^0.8.1",
-    "@nuxt/schema": "^3.12.4",
     "@nuxt/test-utils": "^3.14.0",
     "@nuxt/ui": "^2.18.4",
     "@types/node": "^20.14.11",
     "eslint": "^9.9.0",
-    "h3": "^1.12.0",
     "husky": "^9.1.4",
-    "nitropack": "^2.9.7",
-    "nuxi": "^3.12.0",
     "nuxt": "^3.12.4",
     "typescript": "^5.5.4",
-    "vite": "^5.4.0",
-    "vitest": "^2.0.5",
-    "vue": "^3.4.37",
-    "vue-router": "^4.4.3"
+    "vitest": "^2.0.5"
   },
-  "packageManager": "yarn@4.4.0+sha256.5f228cb28f2edb97d8c3b667fb7b2fdcf06c46798e25ea889dad9e0b4bc2e2c1"
+  "build": {
+    "externals": [
+      "h3",
+      "std-env",
+      "nitropack"
+    ]
+  }
 }
