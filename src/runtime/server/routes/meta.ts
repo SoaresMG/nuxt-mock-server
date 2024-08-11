@@ -1,6 +1,6 @@
 import { defineEventHandler } from "h3";
-import { useRuntimeConfig } from "nuxt/app";
 import type { MockServerMeta } from "../../types";
+import { useRuntimeConfig } from "#imports";
 
 export default defineEventHandler((event): MockServerMeta | undefined => {
   const { mockServer } = useRuntimeConfig(event);

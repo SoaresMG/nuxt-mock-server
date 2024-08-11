@@ -9,25 +9,16 @@ import { readPackageJSON } from "pkg-types";
 import { setupDevToolsUI } from "./devtools";
 import { DEFAULT_PRESET } from "./runtime/utils";
 import { setupAutoImports } from "./auto-imports";
-import { setupGeneratedTypes } from "./generated-types";
-import type { ModulePackageInfo } from "./runtime/types";
+import { setupGeneratedTypes } from "./generate-types";
+import type { ModulePackageInfo, ModuleOptions as _ModuleOptions } from "./runtime/types";
 
 const logger = useLogger("@nuxt/mock-server");
 
-export interface ModuleOptions {
-  enabled?: boolean;
-  pathMatch?: string;
-  mockDir?: string;
-  devtools?: boolean;
-  preset?: string;
-  package?: ModulePackageInfo;
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface ModuleOptions extends _ModuleOptions {}
 
-declare module "@nuxt/schema" {
-  interface RuntimeConfig {
-    mockServer?: ModuleOptions;
-  }
-}
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface ModuleHooks {}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -40,21 +31,21 @@ export default defineNuxtModule<ModuleOptions>({
     mockDir: "mocks",
     devtools: true,
     preset: DEFAULT_PRESET,
+    auto: true,
   },
   async setup(_options, nuxt) {
     const resolver = createResolver(import.meta.url);
-    setupGeneratedTypes(nuxt, resolver);
-    setupAutoImports(nuxt, resolver);
 
-    const { name, version } = await readPackageJSON(resolver.resolve("../package.json"));
+    const packageJson = await readPackageJSON(resolver.resolve("../package.json"));
+    const packageInfo: ModulePackageInfo = { name: packageJson.name || "notfound", version: packageJson.version || "0.0.0" };
+
+    setupGeneratedTypes(nuxt, resolver, packageInfo);
+    setupAutoImports(nuxt, resolver);
 
     const options = nuxt.options.runtimeConfig.mockServer = {
       ..._options,
-      ...nuxt.options.runtimeConfig.mockServer || {},
-      package: {
-        name,
-        version,
-      },
+      ...nuxt.options.runtimeConfig.mockServer,
+      package: packageInfo,
     };
 
     if (
@@ -67,7 +58,9 @@ export default defineNuxtModule<ModuleOptions>({
 
     logger.info(`Mock server is enabled for ${options.pathMatch}`);
 
-    addServerPlugin(resolver.resolve("./runtime/server/plugins/mock-processor"));
+    if (options.auto) {
+      addServerPlugin(resolver.resolve("./runtime/server/plugins/processor"));
+    }
 
     if (options.devtools) {
       addServerHandler({

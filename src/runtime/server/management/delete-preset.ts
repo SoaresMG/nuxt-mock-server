@@ -26,7 +26,7 @@ export async function deletePreset(event: H3Event, name: string, options: Delete
       const presetDirent = mockDirents.find(dirent => !dirent.isFile() && dirent.name.toLowerCase() === deletingPreset.name.toLowerCase());
 
       if (presetDirent) {
-        await fs.rmdir(`${mockServer.mockDir}/${presetDirent.name}`, { recursive: true });
+        await fs.rm(`${mockServer.mockDir}/${presetDirent.name}`, { recursive: true });
       }
     }
     catch (e) {

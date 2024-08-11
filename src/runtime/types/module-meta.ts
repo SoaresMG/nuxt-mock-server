@@ -1,6 +1,6 @@
 export interface ModulePackageInfo {
-  name: string | undefined;
-  version: string | undefined;
+  name: string ;
+  version: string;
 }
 
 export interface MockServerMeta {
