@@ -22,6 +22,8 @@ jobs:
       - name: Install Dependencies
         run: yarn install --immutable
       - name: Lint
+        run: yarn dev:prepare
+      - name: Lint
         run: yarn lint:ci
       - name: Typecheck
         run: yarn test:types
