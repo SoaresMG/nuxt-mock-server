@@ -31,7 +31,7 @@ export async function getPresets(event: H3Event) {
       preset.entries.push(entry);
     }
     else {
-      presets.push({ name: entry.meta.preset, entries: [entry] });
+      presets.push({ name: entry.meta.preset, entries: [entry], isCurrent: entry.meta.preset === event.context.preset });
     }
   }
 

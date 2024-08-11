@@ -14,6 +14,7 @@ export interface MockEntry {
 
 export interface MockPreset {
   name: string;
+  isCurrent: boolean;
   entries: MockEntry[];
 }
 

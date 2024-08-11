@@ -22,5 +22,5 @@ export async function getPreset(event: H3Event, name: string): Promise<MockPrese
   const mockDirents = await fs.readdir(`${mockServer.mockDir}/${name}`, { recursive: true, withFileTypes: true });
   const entries = (await Promise.all(mockDirents.filter(dirent => dirent.isFile()).map(getEntry))).filter(notUndefinedOrNull);
 
-  return { name, entries };
+  return { name, entries, isCurrent: name === event.context.preset };
 }
