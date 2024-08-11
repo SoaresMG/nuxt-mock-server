@@ -152,7 +152,7 @@
             </p>
           </div>
           <SectionBlock
-            v-for="preset in presets"
+            v-for="preset in orderedPresets"
             :key="preset.name"
           >
             <template #text>
@@ -171,7 +171,10 @@
                       [{{ preset.entries.length }}] mocked endpoints included in the {{ preset.name }} preset.
                     </div>
                   </div>
-                  <div class="font-bold flex mt-2">
+                  <div
+                    v-if="preset.isCurrent"
+                    class="font-bold flex mt-2"
+                  >
                     <button
                       text-lg=""
                       type="button"
@@ -278,7 +281,7 @@ import { usePresets } from "../composables/use-presets";
 import { useModuleMeta } from "../composables/use-module-meta";
 import { loadShiki } from "../composables/shiki";
 import { useRpc } from "../composables/use-rpc";
-import { useHead } from "#imports";
+import { computed, useHead } from "#imports";
 
 await loadShiki();
 
@@ -294,6 +297,8 @@ const { moduleMeta } = useModuleMeta();
 const isCreatingPreset = ref(false);
 const isDeletingPreset = ref<string | false>(false);
 const newPresetName = ref<string | null>(null);
+
+const orderedPresets = computed(() => presets.value.toSorted(a => a.isCurrent ? 1 : -1));
 
 onMounted(async () => {
   await loadPresets();
