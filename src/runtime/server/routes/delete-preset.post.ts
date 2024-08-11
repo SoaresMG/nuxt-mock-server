@@ -1,7 +1,8 @@
-import { defineEventHandler, getQuery } from "h3";
+import { getQuery } from "h3";
 import { useMockServer } from "../composables";
+import { definePresetHandler } from "../handlers";
 
-export default defineEventHandler(async (event) => {
+export default definePresetHandler(async (event) => {
   const query = getQuery(event);
   const { deletePreset } = useMockServer(event);
 

@@ -158,6 +158,11 @@
             <template #text>
               <h3 class="opacity-80 text-base mb-1">
                 {{ capitalize(preset.name) }}
+                <NIcon
+                  v-if="preset.isCurrent"
+                  icon="carbon:checkmark-filled"
+                  class="group-hover:text-green-500 ml-2"
+                />
               </h3>
             </template>
             <div class="px-3 py-2 space-y-5">
@@ -172,7 +177,7 @@
                     </div>
                   </div>
                   <div
-                    v-if="preset.isCurrent"
+                    v-if="!preset.isCurrent"
                     class="font-bold flex mt-2"
                   >
                     <button
@@ -235,7 +240,12 @@
       </main>
     </div>
 
-    <ModalDialog :is-open="isCreatingPreset">
+    <ModalDialog
+      :is-open="isCreatingPreset"
+      variant="confirmation"
+      @confirm="createNewPreset"
+      @close="closeCreationDialog"
+    >
       <input
         id="first_name"
         v-model="newPresetName"
@@ -244,32 +254,17 @@
         required
         placeholder="My new preset's name..."
       >
-      <div class="w-full mt-2 flex flex-justify-end">
-        <button
-          class="n-icon-button n-button"
-          @click="createNewPreset"
-        >
-          <NIcon
-            icon="carbon:save"
-            class="group-hover:text-green-500"
-          />
-        </button>
-      </div>
     </ModalDialog>
-    <ModalDialog :is-open="isDeletingPreset">
-      <span class="text-md">Are you sure you want to delete the following preset?</span>
+    <ModalDialog
+      :is-open="isDeletingPreset"
+      variant="confirmation"
+      @confirm="onDeletePresetHandler"
+      @close="closeDeletionDialog"
+    >
+      <template #title>
+        Are you sure you want to delete the following preset?
+      </template>
       <pre class="text-lg mt-2">{{ isDeletingPreset && capitalize(isDeletingPreset) }}</pre>
-      <div class="w-full mt-2 flex flex-justify-end">
-        <button
-          class="n-icon-button n-button"
-          @click="onDeletePresetHandler"
-        >
-          <NIcon
-            icon="carbon:trash-can"
-            class="group-hover:text-green-500"
-          />
-        </button>
-      </div>
     </ModalDialog>
   </div>
 </template>
@@ -298,7 +293,7 @@ const isCreatingPreset = ref(false);
 const isDeletingPreset = ref<string | false>(false);
 const newPresetName = ref<string | null>(null);
 
-const orderedPresets = computed(() => presets.value.toSorted(a => a.isCurrent ? 1 : -1));
+const orderedPresets = computed(() => presets.value.toSorted(a => a.isCurrent ? -1 : 1));
 
 onMounted(async () => {
   await loadPresets();
@@ -323,11 +318,20 @@ async function createNewPreset() {
   newPresetName.value = null;
 }
 
+function closeCreationDialog() {
+  isCreatingPreset.value = false;
+  newPresetName.value = null;
+}
+
 async function onDeletePresetHandler() {
   if (isDeletingPreset.value) {
     await deletePreset(isDeletingPreset.value);
     isDeletingPreset.value = false;
   }
+}
+
+function closeDeletionDialog() {
+  isDeletingPreset.value = false;
 }
 </script>
 
