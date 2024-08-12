@@ -193,6 +193,22 @@
                       />
                     </button>
                   </div>
+                  <div
+                    class="font-bold flex mt-2"
+                  >
+                    <button
+                      text-lg=""
+                      type="button"
+                      class="w-full flex-inline flex-justify-between flex-items-center p2 text-align-left text-sm n-button n-transition hover:n-bg-active"
+                      @click="() => generatePreset(preset.name)"
+                    >
+                      Generate preset
+                      <NIcon
+                        icon="carbon:reset"
+                        class="group-hover:text-green-500"
+                      />
+                    </button>
+                  </div>
                   <div class="font-bold flex mt-2">
                     <button
                       text-lg=""
@@ -286,7 +302,7 @@ const tabs = ["mocks", "docs"] as const;
 
 const currentTab = useLocalStorage<typeof tabs[number]>("nuxt-mock-server:tab", "mocks");
 
-const { presets, loadPresets, setPreset, deletePreset, isLoading } = usePresets();
+const { presets, loadPresets, setPreset, deletePreset, generatePreset, isLoading } = usePresets();
 const { moduleMeta } = useModuleMeta();
 
 const isCreatingPreset = ref(false);
