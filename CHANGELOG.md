@@ -1,5 +1,29 @@
 # nuxt-mock-server
 
+## 1.4.0
+
+### Minor Changes
+
+- [#59](https://github.com/SoaresMG/nuxt-mock-server/pull/59) [`ce3924c`](https://github.com/SoaresMG/nuxt-mock-server/commit/ce3924c7761b419f0571feb76d386722098461c8) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Ability to switch between selective/auto mode
+
+- [#54](https://github.com/SoaresMG/nuxt-mock-server/pull/54) [`07cd200`](https://github.com/SoaresMG/nuxt-mock-server/commit/07cd20032d3970d82ab599f750156efddd2e989c) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Add ability to not swap the preset on deleting it
+
+- [#65](https://github.com/SoaresMG/nuxt-mock-server/pull/65) [`e9a5cb0`](https://github.com/SoaresMG/nuxt-mock-server/commit/e9a5cb017c05385607498e9d41e5d1c186ff571f) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Add ability to generate mocks based on a route list
+
+- [#65](https://github.com/SoaresMG/nuxt-mock-server/pull/65) [`e9a5cb0`](https://github.com/SoaresMG/nuxt-mock-server/commit/e9a5cb017c05385607498e9d41e5d1c186ff571f) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Add `mock-server:extendOptions` build hook and `mock-server:extendRoutes` runtime hook
+
+### Patch Changes
+
+- [#62](https://github.com/SoaresMG/nuxt-mock-server/pull/62) [`1ccfce3`](https://github.com/SoaresMG/nuxt-mock-server/commit/1ccfce3161577b724511570c929ca015a2e5a774) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Removed warning during build due to `sirv` being a devDep instead of a normal dependency
+
+- [#63](https://github.com/SoaresMG/nuxt-mock-server/pull/63) [`b0a74a8`](https://github.com/SoaresMG/nuxt-mock-server/commit/b0a74a8c5d7723e477a6b82e5ee53e29c82b00c9) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Replace yarn for pnpm to comply with standard nuxt-modules
+
+- [#60](https://github.com/SoaresMG/nuxt-mock-server/pull/60) [`300a737`](https://github.com/SoaresMG/nuxt-mock-server/commit/300a737d6342ab314152b8f5054bb4cb2810b9d6) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Add `isCurrent` into Preset and disable `set as current` on the current one
+
+- [#61](https://github.com/SoaresMG/nuxt-mock-server/pull/61) [`06a2ca4`](https://github.com/SoaresMG/nuxt-mock-server/commit/06a2ca4fd3964c2cc5b486cba67e372225d2ef48) Thanks [@SoaresMG](https://github.com/SoaresMG)! - setPreset and deletePreset not working as expected
+
+- [#56](https://github.com/SoaresMG/nuxt-mock-server/pull/56) [`d066fb3`](https://github.com/SoaresMG/nuxt-mock-server/commit/d066fb3c38a21a9c9d4e58850bb4e7a758f0e2c4) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Override module options with runtimeConfig.mockServer
+
 ## 1.3.0
 
 ### Minor Changes
