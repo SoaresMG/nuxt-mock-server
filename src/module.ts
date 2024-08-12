@@ -24,6 +24,9 @@ export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: "nuxt-mock-server",
     configKey: "mocks",
+    compatibility: {
+      nuxt: ">=3.0.0",
+    },
   },
   defaults: {
     enabled: false,
@@ -39,8 +42,8 @@ export default defineNuxtModule<ModuleOptions>({
     const packageJson = await readPackageJSON(resolver.resolve("../package.json"));
     const packageInfo: ModulePackageInfo = { name: packageJson.name || "notfound", version: packageJson.version || "0.0.0" };
 
-    setupGeneratedTypes(nuxt, resolver, packageInfo);
-    setupAutoImports(nuxt, resolver);
+    setupGeneratedTypes(packageInfo);
+    setupAutoImports(resolver);
 
     const options = nuxt.options.runtimeConfig.mockServer = {
       ..._options,

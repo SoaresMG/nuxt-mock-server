@@ -10,5 +10,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["nuxt-mock-server-client", "nuxt-mock-server-playground"]
+  "ignore": ["nuxt-mock-server-client"]
 }

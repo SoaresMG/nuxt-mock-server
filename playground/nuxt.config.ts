@@ -1,11 +1,13 @@
 import { resolve } from "node:path";
+import { defineNuxtConfig } from "nuxt/config";
 import { defineNuxtModule } from "@nuxt/kit";
 import { startSubprocess } from "@nuxt/devtools-kit";
 import consola from "consola";
+import NuxtMockServer from "../src/module";
 
 export default defineNuxtConfig({
   modules: [
-    "../../src/module",
+    NuxtMockServer,
     "@nuxt/ui",
     defineNuxtModule({
       setup(_, nuxt) {
@@ -37,12 +39,6 @@ export default defineNuxtConfig({
   mocks: {
     enabled: true,
     auto: false,
-  },
-
-  nitro: {
-    typescript: {
-      internalPaths: true,
-    },
   },
 
   compatibilityDate: "2024-08-04",
