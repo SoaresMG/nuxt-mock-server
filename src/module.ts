@@ -17,8 +17,9 @@ const logger = useLogger("@nuxt/mock-server");
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface ModuleOptions extends _ModuleOptions {}
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface ModuleHooks {}
+export interface ModuleHooks {
+  "mock-server:extendRoutes": (routes: string[]) => void | Promise<void>;
+}
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -62,7 +63,11 @@ export default defineNuxtModule<ModuleOptions>({
     logger.info(`Mock server is enabled for ${options.pathMatch}`);
 
     if (options.auto) {
-      addServerPlugin(resolver.resolve("./runtime/server/plugins/processor"));
+      addServerPlugin(resolver.resolve("./runtime/server/plugins/01.processor"));
+    }
+
+    if (options.generate && options.generate.routes?.length) {
+      addServerPlugin(resolver.resolve("./runtime/server/plugins/02.generator"));
     }
 
     if (options.devtools) {

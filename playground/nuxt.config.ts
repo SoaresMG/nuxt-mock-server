@@ -39,6 +39,15 @@ export default defineNuxtConfig({
   mocks: {
     enabled: true,
     auto: false,
+    generate: {
+      routes: [
+        "/api/pages/product?slug=/product/Cheese",
+        "/api/pages/product?slug=/product/Hat",
+        "/api/pages/dynamic?slug=/Test",
+        "/api/pages/dynamic?slug=/Test2",
+      ],
+      parallel: true,
+    },
   },
 
   compatibilityDate: "2024-08-04",

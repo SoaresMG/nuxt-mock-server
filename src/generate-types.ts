@@ -12,7 +12,7 @@ declare module "@nuxt/schema" {
 
 declare module "nitropack" {
   interface NitroRuntimeHooks {
-    "mock-server:config": () => void | Promise<void>
+    "mock-server:extendRoutes": (routes: string[]) => void | Promise<void>;
   }
 }
 `;

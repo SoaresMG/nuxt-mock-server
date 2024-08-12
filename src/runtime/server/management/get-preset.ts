@@ -16,7 +16,7 @@ export async function getPreset(event: H3Event, name: string): Promise<MockPrese
   const { mockServer } = useRuntimeConfig(event);
 
   if (!mockServer || !mockServer.enabled || !mockServer.mockDir) {
-    throw new TypeError("Mock server is not enabled");
+    throw new TypeError("[Mock Server] Is not enabled");
   }
 
   const mockDirents = await fs.readdir(`${mockServer.mockDir}/${name}`, { recursive: true, withFileTypes: true });

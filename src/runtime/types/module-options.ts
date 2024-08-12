@@ -44,10 +44,23 @@ export interface ModuleOptions {
    */
   auto?: boolean;
   /**
-   * Routes to generate on module load.
-   * Mock Server will automatically call these routes to generate mock files inside the preset directory specified in the property `preset`.
+   * If defined generates mock files on the specified routes.
    *
-   * @default false
+   * @default undefined
    */
-  routes?: string[];
+  generate?: {
+    /**
+     * Routes to generate on module load.
+     * Mock Server will automatically call these routes to generate mock files inside the preset directory specified in the property `preset`.
+     *
+     * @default false
+     */
+    routes?: string[];
+    /**
+     * Enables parallel mode for route mock generation.
+     *
+     * @default false
+     */
+    parallel?: boolean;
+  };
 }
