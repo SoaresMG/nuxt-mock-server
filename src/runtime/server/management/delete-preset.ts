@@ -16,8 +16,8 @@ export async function deletePreset(event: H3Event, name: string, options: Delete
     throw new TypeError("Mock server is not enabled");
   }
 
-  if (!event.context.preset) {
-    consola.warn("[Mock Server] No preset is set in the event context, maybe you forgot to use `definePresetHandler`?");
+  if (!event.context.preset && !mockServer.supressAllLogs) {
+    consola.warn("[mock-server] No preset is set in the event context, maybe you forgot to use `definePresetHandler`?");
   }
 
   const presets = await getPresets(event);

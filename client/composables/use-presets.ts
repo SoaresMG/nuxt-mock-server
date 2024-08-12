@@ -30,8 +30,7 @@ export function usePresets() {
     isLoading.value = true;
     try {
       if (appFetch.value) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        await appFetch.value("/__mock-server__/set-preset", { method: "POST", query: { preset: name } } as any);
+        await appFetch.value("/__mock-server__/set-preset", { method: "POST", query: { preset: name } });
         await appFetch.value("/");
         await loadPresets(false);
       }
@@ -48,9 +47,24 @@ export function usePresets() {
     isLoading.value = true;
     try {
       if (appFetch.value) {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        await appFetch.value("/__mock-server__/delete-preset", { method: "POST", query: { preset: name } } as any);
+        await appFetch.value("/__mock-server__/delete-preset", { method: "POST", query: { preset: name } });
         await appFetch.value("/");
+        await loadPresets(false);
+      }
+    }
+    catch (e) {
+      console.error(e);
+    }
+    finally {
+      isLoading.value = false;
+    }
+  }
+
+  async function generatePreset(name: string) {
+    isLoading.value = true;
+    try {
+      if (appFetch.value) {
+        await appFetch.value("/__mock-server__/generate-preset", { method: "POST", query: { preset: name } });
         await loadPresets(false);
       }
     }
@@ -68,5 +82,6 @@ export function usePresets() {
     loadPresets,
     setPreset,
     deletePreset,
+    generatePreset,
   };
 }

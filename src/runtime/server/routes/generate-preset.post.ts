@@ -1,6 +1,6 @@
 import { getQuery } from "h3";
 import { definePresetHandler } from "../handlers";
-import { generateRoutes } from "../management";
+import { generatePreset } from "../management";
 import { useRuntimeConfig } from "#imports";
 
 export default definePresetHandler(async (event) => {
@@ -12,5 +12,5 @@ export default definePresetHandler(async (event) => {
     throw new Error("Preset is required and must be a string");
   }
 
-  await generateRoutes(runtimeConfig, undefined, preset);
+  await generatePreset(runtimeConfig, undefined, preset);
 });
