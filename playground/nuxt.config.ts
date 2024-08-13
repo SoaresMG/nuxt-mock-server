@@ -48,7 +48,7 @@ export default defineNuxtConfig({
   mocks: {
     enabled: true,
     auto: false,
-    supressAllLogs: true,
+    debug: true,
     generate: {
       routes: [
         "/api/pages/product?slug=/product/Cheese",

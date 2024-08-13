@@ -41,7 +41,7 @@ export default defineNuxtModule<ModuleOptions>({
     devtools: true,
     preset: DEFAULT_PRESET,
     auto: true,
-    supressAllLogs: false,
+    debug: false,
   },
   async setup(_options, nuxt) {
     const resolver = createResolver(import.meta.url);
@@ -68,7 +68,7 @@ export default defineNuxtModule<ModuleOptions>({
       return;
     }
 
-    if (!options.supressAllLogs) {
+    if (options.debug) {
       logger.info(`Mock server is enabled for ${options.pathMatch}`);
     }
 

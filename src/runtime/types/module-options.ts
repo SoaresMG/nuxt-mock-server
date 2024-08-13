@@ -44,11 +44,11 @@ export interface ModuleOptions {
    */
   auto?: boolean;
   /**
-   * Suppresses all logs emitted by the module except errors.
+   * Enables all logs emitted by the module otherwise only errors are emitted.
    *
    * @default false
    */
-  supressAllLogs?: boolean;
+  debug?: boolean;
   /**
    * If defined generates mock files on the specified routes.
    *
