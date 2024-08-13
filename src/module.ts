@@ -7,7 +7,7 @@ import {
 } from "@nuxt/kit";
 import { readPackageJSON } from "pkg-types";
 import { setupDevToolsUI } from "./devtools";
-import { DEFAULT_PRESET } from "./runtime/utils";
+import { DEFAULT_PRESET, transformDevtoolsOptions } from "./runtime/utils";
 import { setupAutoImports } from "./auto-imports";
 import { setupGeneratedTypes } from "./generate-types";
 import type { ModulePackageInfo, ModuleOptions as _ModuleOptions } from "./runtime/types";
@@ -39,7 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
     pathMatch: "^\\/api\\/.*$",
     mockDir: "mocks",
     devtools: true,
-    preset: DEFAULT_PRESET,
+    defaultPreset: DEFAULT_PRESET,
     auto: true,
     debug: false,
   },
@@ -76,7 +76,9 @@ export default defineNuxtModule<ModuleOptions>({
       addServerPlugin(resolver.resolve("./runtime/server/plugins/processor"));
     }
 
-    if (options.devtools) {
+    const devtools = transformDevtoolsOptions(options.devtools);
+
+    if (devtools.enabled) {
       addServerHandler({
         route: "/__mock-server__/presets",
         handler: resolver.resolve("./runtime/server/routes/presets"),
@@ -87,23 +89,29 @@ export default defineNuxtModule<ModuleOptions>({
         handler: resolver.resolve("./runtime/server/routes/meta"),
       });
 
-      addServerHandler({
-        route: "/__mock-server__/set-preset",
-        method: "POST",
-        handler: resolver.resolve("./runtime/server/routes/set-preset.post"),
-      });
+      if (devtools.createPreset || devtools.setPreset) {
+        addServerHandler({
+          route: "/__mock-server__/set-preset",
+          method: "POST",
+          handler: resolver.resolve("./runtime/server/routes/set-preset.post"),
+        });
+      }
 
-      addServerHandler({
-        route: "/__mock-server__/delete-preset",
-        method: "POST",
-        handler: resolver.resolve("./runtime/server/routes/delete-preset.post"),
-      });
+      if (devtools.deletePreset) {
+        addServerHandler({
+          route: "/__mock-server__/delete-preset",
+          method: "POST",
+          handler: resolver.resolve("./runtime/server/routes/delete-preset.post"),
+        });
+      }
 
-      addServerHandler({
-        route: "/__mock-server__/generate-preset",
-        method: "POST",
-        handler: resolver.resolve("./runtime/server/routes/generate-preset.post"),
-      });
+      if (devtools.generatePreset) {
+        addServerHandler({
+          route: "/__mock-server__/generate-preset",
+          method: "POST",
+          handler: resolver.resolve("./runtime/server/routes/generate-preset.post"),
+        });
+      }
 
       setupDevToolsUI(nuxt, resolver);
     }

@@ -11,8 +11,7 @@
 
 <script setup lang="ts">
 import { useDevtoolsClient } from "@nuxt/devtools-kit/iframe-client";
-import { provide } from "vue";
-import { fetchModuleMeta, moduleMetaKey } from "./composables/use-module-meta";
+import { fetchModuleMeta, setModuleMeta } from "./composables/use-module-meta";
 import { createError } from "#app";
 import "floating-vue/dist/style.css";
 
@@ -23,5 +22,5 @@ if (!data) {
   throw createError("Failed to fetch module meta");
 }
 
-provide(moduleMetaKey, data);
+setModuleMeta(data);
 </script>
