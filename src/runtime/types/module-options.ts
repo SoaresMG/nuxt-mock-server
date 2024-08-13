@@ -1,4 +1,6 @@
-import type { ModulePackageInfo } from "./module-meta";
+import type { DevtoolsSpecificOptions, ModulePackageInfo } from "./module-meta";
+
+export type DevtoolsOptions = boolean | DevtoolsSpecificOptions;
 
 export interface ModuleOptions {
   /**
@@ -25,7 +27,7 @@ export interface ModuleOptions {
    *
    * @default true
    */
-  devtools?: boolean;
+  devtools?: boolean | DevtoolsOptions;
   /**
    * Default preset if no cookie is present.
    * Devtools will always be disabled when Nuxt is not in dev mode.

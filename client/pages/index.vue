@@ -97,7 +97,7 @@
               Refresh
             </template>
           </VTooltip>
-          <VTooltip>
+          <VTooltip v-if="moduleMeta?.devtools.createPreset">
             <button
               text-lg=""
               type="button"
@@ -177,7 +177,7 @@
                     </div>
                   </div>
                   <div
-                    v-if="!preset.isCurrent"
+                    v-if="!preset.isCurrent && moduleMeta?.devtools.setPreset"
                     class="font-bold flex mt-2"
                   >
                     <button
@@ -194,6 +194,7 @@
                     </button>
                   </div>
                   <div
+                    v-if="moduleMeta?.devtools.generatePreset"
                     class="font-bold flex mt-2"
                   >
                     <button
@@ -209,7 +210,10 @@
                       />
                     </button>
                   </div>
-                  <div class="font-bold flex mt-2">
+                  <div
+                    v-if="moduleMeta?.devtools.deletePreset"
+                    class="font-bold flex mt-2"
+                  >
                     <button
                       text-lg=""
                       type="button"
