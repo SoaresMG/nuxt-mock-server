@@ -1,5 +1,15 @@
 # nuxt-mock-server
 
+## 1.4.1
+
+### Patch Changes
+
+- [#67](https://github.com/SoaresMG/nuxt-mock-server/pull/67) [`5b4d7e3`](https://github.com/SoaresMG/nuxt-mock-server/commit/5b4d7e3428bd6c8c01168a880d5dda99894d2062) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Replace `suppressAllLogs` with `debug` option
+
+- [#69](https://github.com/SoaresMG/nuxt-mock-server/pull/69) [`1f31664`](https://github.com/SoaresMG/nuxt-mock-server/commit/1f3166483bee18c285f9a9bc0cf6399947274a1c) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Replace `options.preset` by `options.defaultPreset`
+
+- [#69](https://github.com/SoaresMG/nuxt-mock-server/pull/69) [`1f31664`](https://github.com/SoaresMG/nuxt-mock-server/commit/1f3166483bee18c285f9a9bc0cf6399947274a1c) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Add option to disable devtools partially (create, delete, generate presets)
+
 ## 1.4.0
 
 ### Minor Changes
