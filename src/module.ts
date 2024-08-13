@@ -39,7 +39,7 @@ export default defineNuxtModule<ModuleOptions>({
     pathMatch: "^\\/api\\/.*$",
     mockDir: "mocks",
     devtools: true,
-    preset: DEFAULT_PRESET,
+    defaultPreset: DEFAULT_PRESET,
     auto: true,
     debug: false,
   },

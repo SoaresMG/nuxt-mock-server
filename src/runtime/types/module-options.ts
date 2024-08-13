@@ -32,7 +32,7 @@ export interface ModuleOptions {
    *
    * @default "default"
    */
-  preset?: string;
+  defaultPreset?: string;
   /**
    * @private
    */

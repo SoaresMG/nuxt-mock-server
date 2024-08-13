@@ -6,7 +6,7 @@ export default function (nitro: NitroApp) {
   const runtimeConfig = useRuntimeConfig();
   const { mockServer } = runtimeConfig;
 
-  if (!mockServer || !mockServer.enabled || !mockServer.pathMatch || !mockServer.preset) {
+  if (!mockServer || !mockServer.enabled || !mockServer.pathMatch || !mockServer.defaultPreset) {
     return;
   }
 
@@ -17,7 +17,7 @@ export default function (nitro: NitroApp) {
     return interceptRequest(() => undefined, runtimeConfig, {
       routeRegExp: routeRegExp,
       forceRouteMatch: false,
-      defaultPreset: mockServer.preset,
+      defaultPreset: mockServer.defaultPreset,
     })(event);
   });
 };

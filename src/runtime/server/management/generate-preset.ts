@@ -36,8 +36,8 @@ export const generatePreset = async (
 ) => {
   const nitro = _nitro || useNitroApp();
 
-  const { mockServer: { preset: DefaultPreset, generate, auto, debug } = {} } = runtimeConfig;
-  const preset = _preset || DefaultPreset;
+  const { mockServer: { defaultPreset, generate, auto, debug } = {} } = runtimeConfig;
+  const preset = _preset || defaultPreset;
 
   if (!generate || !generate.routes?.length) {
     throw new TypeError("[mock-server] Generation is not enabled");
