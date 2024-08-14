@@ -1,5 +1,13 @@
 # nuxt-mock-server
 
+## 1.4.3
+
+### Patch Changes
+
+- [#75](https://github.com/SoaresMG/nuxt-mock-server/pull/75) [`d6a4c25`](https://github.com/SoaresMG/nuxt-mock-server/commit/d6a4c25cad175dbb72a33c1de72f0144a78cd2cf) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Add generatePreset on useMockServer composable
+
+- [#75](https://github.com/SoaresMG/nuxt-mock-server/pull/75) [`d6a4c25`](https://github.com/SoaresMG/nuxt-mock-server/commit/d6a4c25cad175dbb72a33c1de72f0144a78cd2cf) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Rearrange routes to match /presets/[id]/<action>
+
 ## 1.4.2
 
 ### Patch Changes
