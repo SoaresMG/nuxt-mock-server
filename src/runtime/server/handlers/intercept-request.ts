@@ -1,23 +1,22 @@
 import { defineEventHandler, type EventHandler, type EventHandlerRequest, type H3Event } from "h3";
 import consola from "consola";
-import type { RuntimeConfig } from "@nuxt/schema";
 import { AutoFormatter } from "../../formatters";
 import type { FormatterDataType } from "../../types";
 import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../../utils";
 import { definePresetHandler } from "./define-preset-handler";
-import { defineErrorHandler } from "./define-error-handler";
-import { useNitroApp } from "#imports";
+import { useNitroApp, useRuntimeConfig } from "#imports";
 
 export type InterceptRequestOptions = {
   defaultPreset?: string;
 } & ({ routeRegExp: RegExp; forceRouteMatch: false; } | { forceRouteMatch: true; });
 
+const getHeaders = (headers: Headers) => Object.fromEntries(headers.entries());
+
 export const interceptRequest = <T extends EventHandlerRequest, D>(
   handler: EventHandler<T, D>,
-  runtimeConfig: RuntimeConfig,
   options: InterceptRequestOptions = { forceRouteMatch: true },
-): EventHandler<T, D> => defineErrorHandler(definePresetHandler(defineEventHandler<T>(async (event: H3Event) => {
-  const { mockServer } = runtimeConfig;
+): EventHandler<T, D> => definePresetHandler(defineEventHandler<T>(async (event: H3Event) => {
+  const { mockServer } = useRuntimeConfig(event);
 
   const nitro = useNitroApp();
 
@@ -36,7 +35,7 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
   if (mockResponse) {
     const { body, headers, status } = mockResponse;
 
-    event.respondWith(new Response(body, {
+    await event.respondWith(new Response(body, {
       headers,
       status,
     }));
@@ -47,6 +46,7 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
     method: "GET",
     cache: "no-cache",
     headers: {
+      ...getHeaders(event.headers),
       [MAIN_HEADER_KEY]: MAIN_HEADER_VALUE.IGNORE,
     },
   });
@@ -58,14 +58,14 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
         path: event.path,
         lastModified: new Date(),
         headers: {
-          ...Object.fromEntries(localResponse.headers.entries()),
+          ...getHeaders(localResponse.headers),
           "content-type": localResponse.headers.get("content-type") as FormatterDataType || "text/plain",
         },
       },
       response: localResponse,
     });
 
-    event.respondWith(new Response(body, {
+    await event.respondWith(new Response(body, {
       headers,
       status,
     }));
@@ -77,4 +77,4 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
   return handler(event);
 }), {
   defaultPreset: options?.defaultPreset,
-}));
+});

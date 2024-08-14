@@ -1,7 +1,6 @@
 import consola from "consola";
 import type { createFetch as createLocalFetch } from "unenv/runtime/fetch/index";
 import type { RuntimeConfig } from "@nuxt/schema";
-import type { NitroApp } from "nitropack";
 import { MAIN_HEADER_KEY, PRESET_GENERATION_HEADER_KEY } from "../../utils";
 import { useNitroApp } from "#imports";
 
@@ -31,10 +30,9 @@ async function request(localFetch: ReturnType<typeof createLocalFetch>, route: s
 
 export const generatePreset = async (
   runtimeConfig: RuntimeConfig,
-  _nitro?: NitroApp,
   _preset: string | undefined = undefined,
 ) => {
-  const nitro = _nitro || useNitroApp();
+  const nitro = useNitroApp();
 
   const { mockServer: { defaultPreset, generate, auto, debug } = {} } = runtimeConfig;
   const preset = _preset || defaultPreset;
