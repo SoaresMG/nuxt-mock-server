@@ -49,12 +49,6 @@ export default defineNuxtConfig({
     enabled: true,
     auto: false,
     debug: true,
-    devtools: {
-      createPreset: false,
-      deletePreset: true,
-      generatePreset: true,
-      setPreset: false,
-    },
     generate: {
       routes: [
         "/api/pages/product?slug=/product/Cheese",

@@ -2,15 +2,13 @@ import { defineEventHandler, type EventHandler, type EventHandlerRequest, type H
 import consola from "consola";
 import { AutoFormatter } from "../../formatters";
 import type { FormatterDataType } from "../../types";
-import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE } from "../../utils";
+import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE, transformHeaders } from "../../utils";
 import { definePresetHandler } from "./define-preset-handler";
 import { useNitroApp, useRuntimeConfig } from "#imports";
 
 export type InterceptRequestOptions = {
   defaultPreset?: string;
 } & ({ routeRegExp: RegExp; forceRouteMatch: false; } | { forceRouteMatch: true; });
-
-const getHeaders = (headers: Headers) => Object.fromEntries(headers.entries());
 
 export const interceptRequest = <T extends EventHandlerRequest, D>(
   handler: EventHandler<T, D>,
@@ -46,7 +44,7 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
     method: "GET",
     cache: "no-cache",
     headers: {
-      ...getHeaders(event.headers),
+      ...transformHeaders(event.headers),
       [MAIN_HEADER_KEY]: MAIN_HEADER_VALUE.IGNORE,
     },
   });
@@ -58,7 +56,7 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
         path: event.path,
         lastModified: new Date(),
         headers: {
-          ...getHeaders(localResponse.headers),
+          ...transformHeaders(localResponse.headers),
           "content-type": localResponse.headers.get("content-type") as FormatterDataType || "text/plain",
         },
       },

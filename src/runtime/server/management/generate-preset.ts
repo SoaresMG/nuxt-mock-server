@@ -1,8 +1,8 @@
 import consola from "consola";
 import type { createFetch as createLocalFetch } from "unenv/runtime/fetch/index";
-import type { RuntimeConfig } from "@nuxt/schema";
+import type { H3Event } from "h3";
 import { MAIN_HEADER_KEY, PRESET_GENERATION_HEADER_KEY } from "../../utils";
-import { useNitroApp } from "#imports";
+import { useNitroApp, useRuntimeConfig } from "#imports";
 
 async function request(localFetch: ReturnType<typeof createLocalFetch>, route: string, preset: string, isAutoMode: boolean, debug: boolean) {
   try {
@@ -29,15 +29,15 @@ async function request(localFetch: ReturnType<typeof createLocalFetch>, route: s
 }
 
 export const generatePreset = async (
-  runtimeConfig: RuntimeConfig,
+  event: H3Event,
   _preset: string | undefined = undefined,
 ) => {
   const nitro = useNitroApp();
 
-  const { mockServer: { defaultPreset, generate, auto, debug } = {} } = runtimeConfig;
+  const { mockServer: { defaultPreset, generate, auto, debug } = {} } = useRuntimeConfig(event);
   const preset = _preset || defaultPreset;
 
-  if (!generate || !generate.routes?.length) {
+  if (!generate) {
     throw new TypeError("[mock-server] Generation is not enabled");
   }
 
@@ -47,6 +47,11 @@ export const generatePreset = async (
 
   const routes = generate.routes || [];
   await nitro.hooks.callHook("mock-server:extendRoutes", { routes, preset });
+
+  if (!generate.routes?.length) {
+    consola.warn("[mock-server] No routes to generate");
+    return;
+  }
 
   if (generate.parallel) {
     const routeCalls = await Promise.allSettled(routes.map(route => request(nitro.localFetch, route, preset, !!auto, !!debug)));

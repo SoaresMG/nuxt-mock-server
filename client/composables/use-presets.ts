@@ -30,7 +30,7 @@ export function usePresets() {
     isLoading.value = true;
     try {
       if (appFetch.value) {
-        await appFetch.value("/__mock-server__/set-preset", { method: "POST", query: { preset: name } });
+        await appFetch.value(`/__mock-server__/presets/${name}/set`, { method: "POST" });
         await appFetch.value("/");
         await loadPresets(false);
       }
@@ -47,7 +47,7 @@ export function usePresets() {
     isLoading.value = true;
     try {
       if (appFetch.value) {
-        await appFetch.value("/__mock-server__/delete-preset", { method: "POST", query: { preset: name } });
+        await appFetch.value(`/__mock-server__/presets/${name}/delete`, { method: "POST" });
         await appFetch.value("/");
         await loadPresets(false);
       }
@@ -64,7 +64,7 @@ export function usePresets() {
     isLoading.value = true;
     try {
       if (appFetch.value) {
-        await appFetch.value("/__mock-server__/generate-preset", { method: "POST", query: { preset: name } });
+        await appFetch.value(`/__mock-server__/presets/${name}/generate`, { method: "POST" });
         await loadPresets(false);
       }
     }
