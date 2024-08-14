@@ -48,7 +48,7 @@ export const generatePreset = async (
   const routes = generate.routes || [];
   await nitro.hooks.callHook("mock-server:extendRoutes", { routes, preset });
 
-  if (!generate.routes?.length) {
+  if (!routes.length) {
     consola.warn("[mock-server] No routes to generate");
     return;
   }
