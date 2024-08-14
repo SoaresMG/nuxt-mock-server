@@ -1,5 +1,11 @@
 # nuxt-mock-server
 
+## 1.4.4
+
+### Patch Changes
+
+- [#77](https://github.com/SoaresMG/nuxt-mock-server/pull/77) [`2e0d91d`](https://github.com/SoaresMG/nuxt-mock-server/commit/2e0d91dc8269bd97e7d6adde6346f0234bfe8ef1) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Routes not generating when the only provided ones come from `mock-server:extendRoutes`
+
 ## 1.4.3
 
 ### Patch Changes
