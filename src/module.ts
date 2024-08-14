@@ -80,36 +80,38 @@ export default defineNuxtModule<ModuleOptions>({
 
     if (devtools.enabled) {
       addServerHandler({
-        route: "/__mock-server__/presets",
-        handler: resolver.resolve("./runtime/server/routes/presets"),
+        route: "/__mock-server__/meta",
+        method: "get",
+        handler: resolver.resolve("./runtime/server/routes/meta"),
       });
 
       addServerHandler({
-        route: "/__mock-server__/meta",
-        handler: resolver.resolve("./runtime/server/routes/meta"),
+        route: "/__mock-server__/presets",
+        method: "get",
+        handler: resolver.resolve("./runtime/server/routes/presets/index"),
       });
 
       if (devtools.createPreset || devtools.setPreset) {
         addServerHandler({
-          route: "/__mock-server__/set-preset",
-          method: "POST",
-          handler: resolver.resolve("./runtime/server/routes/set-preset.post"),
+          route: "/__mock-server__/presets/:id/set",
+          method: "post",
+          handler: resolver.resolve("./runtime/server/routes/presets/[id]/set.post"),
         });
       }
 
       if (devtools.deletePreset) {
         addServerHandler({
-          route: "/__mock-server__/delete-preset",
-          method: "POST",
-          handler: resolver.resolve("./runtime/server/routes/delete-preset.post"),
+          route: "/__mock-server__/presets/:id/delete",
+          method: "post",
+          handler: resolver.resolve("./runtime/server/routes/presets/[id]/delete.post"),
         });
       }
 
       if (devtools.generatePreset) {
         addServerHandler({
-          route: "/__mock-server__/generate-preset",
-          method: "POST",
-          handler: resolver.resolve("./runtime/server/routes/generate-preset.post"),
+          route: "/__mock-server__/presets/:id/generate",
+          method: "post",
+          handler: resolver.resolve("./runtime/server/routes/presets/[id]/generate.post"),
         });
       }
 
