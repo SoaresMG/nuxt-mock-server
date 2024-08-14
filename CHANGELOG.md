@@ -1,5 +1,15 @@
 # nuxt-mock-server
 
+## 1.5.0
+
+### Minor Changes
+
+- [#49](https://github.com/SoaresMG/nuxt-mock-server/pull/49) [`4228195`](https://github.com/SoaresMG/nuxt-mock-server/commit/42281951156098e23e7fb32cd74bf628553ec762) Thanks [@rubensilva3](https://github.com/rubensilva3)! - Add initial docs page
+
+### Patch Changes
+
+- [#81](https://github.com/SoaresMG/nuxt-mock-server/pull/81) [`3ff885f`](https://github.com/SoaresMG/nuxt-mock-server/commit/3ff885fd4af52290b839be0a2c6a82cfb489a207) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Forward headers when requesting during mock generation
+
 ## 1.4.5
 
 ### Patch Changes
