@@ -8,6 +8,7 @@ node_modules
 .temp
 .tmp
 .cache
+docs/.vitepress/cache
 
 # Yarn
 **/.yarn/cache
@@ -15,6 +16,7 @@ node_modules
 
 # Generated dirs
 dist
+docs/.vitepress/dist
 
 # Nuxt
 .nuxt

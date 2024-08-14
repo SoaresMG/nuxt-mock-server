@@ -28,10 +28,6 @@
   "files": [
     "dist"
   ],
-  "workspaces": [
-    "client",
-    "./"
-  ],
   "scripts": {
     "client:build": "nuxi generate client",
     "build": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt-module-build build && pnpm client:build",
@@ -43,7 +39,10 @@
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:types": "tsc --noEmit",
-    "release": "pnpm build && changeset publish"
+    "release": "pnpm build && changeset publish",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
     "@nuxt/devtools-kit": "1.3.9",
@@ -70,7 +69,8 @@
     "husky": "9.1.4",
     "nuxt": "3.12.4",
     "typescript": "5.5.4",
-    "vitest": "2.0.5"
+    "vitest": "2.0.5",
+    "vitepress": "1.3.2"
   },
   "build": {
     "externals": [
