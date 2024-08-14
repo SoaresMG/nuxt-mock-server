@@ -12,5 +12,5 @@ export default definePresetHandler(async (event) => {
     throw new Error("Preset is required and must be a string");
   }
 
-  await generatePreset(runtimeConfig, undefined, preset);
+  await generatePreset(runtimeConfig, preset);
 });

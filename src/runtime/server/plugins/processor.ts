@@ -3,8 +3,7 @@ import { interceptRequest } from "../handlers/intercept-request";
 import { useRuntimeConfig } from "#imports";
 
 export default function (nitro: NitroApp) {
-  const runtimeConfig = useRuntimeConfig();
-  const { mockServer } = runtimeConfig;
+  const { mockServer } = useRuntimeConfig();
 
   if (!mockServer || !mockServer.enabled || !mockServer.pathMatch || !mockServer.defaultPreset) {
     return;
@@ -14,7 +13,7 @@ export default function (nitro: NitroApp) {
 
   // We can safely ignore the handler since inside the "request" hook we can return undefined and follow the normal request flow
   nitro.hooks.hook("request", (event) => {
-    return interceptRequest(() => undefined, runtimeConfig, {
+    return interceptRequest(() => undefined, {
       routeRegExp: routeRegExp,
       forceRouteMatch: false,
       defaultPreset: mockServer.defaultPreset,
