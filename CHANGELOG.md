@@ -1,5 +1,11 @@
 # nuxt-mock-server
 
+## 1.4.5
+
+### Patch Changes
+
+- [#79](https://github.com/SoaresMG/nuxt-mock-server/pull/79) [`b1ba6bd`](https://github.com/SoaresMG/nuxt-mock-server/commit/b1ba6bdc28c02ac336f1551a219e0d02a9009266) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Generation not working since due to missing option `generate`
+
 ## 1.4.4
 
 ### Patch Changes
