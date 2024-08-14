@@ -3,6 +3,7 @@ import { defineConfig } from "vitepress";
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "nuxt-mock-server",
+  base: "/nuxt-mock-server/",
   description: "Module that easily adds a mock server to your Nuxt project",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
