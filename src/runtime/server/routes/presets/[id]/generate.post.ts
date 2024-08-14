@@ -1,15 +1,14 @@
 import { getRouterParam } from "h3";
 import { definePresetHandler } from "../../../handlers";
-import { generatePreset } from "../../../management";
-import { useRuntimeConfig } from "#imports";
+import { useMockServer } from "../../../composables";
 
 export default definePresetHandler(async (event) => {
   const preset = getRouterParam(event, "id");
-  const runtimeConfig = useRuntimeConfig(event);
+  const { generatePreset } = useMockServer(event);
 
   if (!preset) {
     throw new Error("Id not found");
   }
 
-  await generatePreset(runtimeConfig, preset);
+  await generatePreset(preset);
 });

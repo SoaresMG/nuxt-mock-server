@@ -1,8 +1,8 @@
 import { faker } from "@faker-js/faker";
-import { defineEventHandler } from "h3";
 import { wait } from "../../utils/wait";
+import { defineMockInterceptorHandler } from "#imports";
 
-export default defineEventHandler(async () => {
+export default defineMockInterceptorHandler(async () => {
   await wait(2000);
 
   return {
