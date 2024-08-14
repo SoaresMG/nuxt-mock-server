@@ -1,5 +1,11 @@
 # nuxt-mock-server
 
+## 1.4.2
+
+### Patch Changes
+
+- [#71](https://github.com/SoaresMG/nuxt-mock-server/pull/71) [`f9583fa`](https://github.com/SoaresMG/nuxt-mock-server/commit/f9583fa45f88e6a7041d572cc8bd76331d73e841) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Forward all headers on the original request
+
 ## 1.4.1
 
 ### Patch Changes
