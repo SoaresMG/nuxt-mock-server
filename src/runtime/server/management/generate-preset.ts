@@ -37,15 +37,11 @@ export const generatePreset = async (
   const { mockServer: { defaultPreset, generate, auto, debug } = {} } = useRuntimeConfig(event);
   const preset = _preset || defaultPreset;
 
-  if (!generate) {
-    throw new TypeError("[mock-server] Generation is not enabled");
-  }
-
   if (!preset) {
     throw new TypeError("[mock-server] Generation cannot proceed due to `preset` not being defined");
   }
 
-  const routes = generate.routes || [];
+  const routes = generate?.routes || [];
   await nitro.hooks.callHook("mock-server:extendRoutes", { routes, preset });
 
   if (!routes.length) {
@@ -53,7 +49,7 @@ export const generatePreset = async (
     return;
   }
 
-  if (generate.parallel) {
+  if (generate?.parallel) {
     const routeCalls = await Promise.allSettled(routes.map(route => request(nitro.localFetch, route, preset, !!auto, !!debug)));
 
     const successfullCalls = routeCalls.filter(call => call.status === "fulfilled");
