@@ -5,7 +5,7 @@
   "description": "Module that easily adds a mock server to your Nuxt project",
   "author": "Leandro Soares",
   "license": "MIT",
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@9.7.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SoaresMG/nuxt-mock-server.git"
@@ -62,10 +62,10 @@
     "@faker-js/faker": "8.4.1",
     "@nuxt/eslint-config": "0.5.0",
     "@nuxt/kit": "3.12.4",
-    "@nuxt/module-builder": "0.8.1",
-    "@nuxt/test-utils": "3.14.0",
+    "@nuxt/module-builder": "0.8.3",
+    "@nuxt/test-utils": "3.14.1",
     "@nuxt/ui": "2.18.4",
-    "@types/node": "20.14.11",
+    "@types/node": "20.14.15",
     "eslint": "9.9.0",
     "husky": "9.1.4",
     "nuxt": "3.12.4",
