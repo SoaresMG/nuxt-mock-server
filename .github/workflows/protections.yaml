@@ -30,3 +30,4 @@ jobs:
         
       - name: Verify commits
         run: npx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD --verbose
+
