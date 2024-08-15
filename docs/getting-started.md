@@ -52,13 +52,13 @@ There are a few particular scenarios where this module shines:
 
 Also, the module is quite fresh and there are a lot of cool features coming in the future, check the <a href="/high-level-roadmap">roadmap</a> for more planned cool features!
 
-## How does it work ?
+## How does it work?
 
 These mocks are generated into a provided folder inside the repository which in turn are provided by the module.
 
 1. Module is loaded and hooks all requests;
 2. User hits a page;
 3. A request is eventually made (e.g `/api/my-endpoint`);
-4. The mock-server will try to intercept the request based on either Auto mode or Selective mode;
+4. The mock-server will try to intercept the request based on either <a href="/features/modes">Auto mode or Selective mode</a>;
 5. If the mock exists returns the data inside the mock, otherwise calls the original endpoint and saves the response as a mock;
 6. Next requests to the same endpoint are always returned from the mock.
