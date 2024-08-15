@@ -1,5 +1,11 @@
 # nuxt-mock-server
 
+## 1.5.1
+
+### Patch Changes
+
+- [#90](https://github.com/SoaresMG/nuxt-mock-server/pull/90) [`bdefbd2`](https://github.com/SoaresMG/nuxt-mock-server/commit/bdefbd22b7aa02da06c7e293ccdf65adbfb11e24) Thanks [@SoaresMG](https://github.com/SoaresMG)! - When mocks.enabled was undefined it was not considering nuxt.isDev
+
 ## 1.5.0
 
 ### Minor Changes
