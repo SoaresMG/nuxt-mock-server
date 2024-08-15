@@ -9,6 +9,7 @@ node_modules
 .tmp
 .cache
 docs/.vitepress/cache
+.vitepress/cache
 
 # Yarn
 **/.yarn/cache
