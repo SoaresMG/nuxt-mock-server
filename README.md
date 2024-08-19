@@ -11,11 +11,17 @@
 
 # nuxt-mock-server
 
+<p align="center">
+  <img src="./docs/public/icon.png" />
+</p>
+
 This module provides an easy way to setup mocks for `nuxt`.
 
 Check the <a href="https://soaresmg.github.io/nuxt-mock-server/">documentation</a> for more information and examples.
 
-[![Nuxt banner](./docs/public/devtools/general-2.png)](https://soaresmg.github.io/nuxt-mock-server/)
+<p align="center">
+  <img src="./docs/public/devtools/general-2.png" />
+</p>
 
 Heavily inspired in [@nuxt/sitemap](https://github.com/nuxt-modules/sitemap).
 
