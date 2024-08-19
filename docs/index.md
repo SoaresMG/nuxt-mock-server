@@ -5,13 +5,11 @@ hero:
   name: "nuxt-mock-server"
   text: "Mocks made easy"
   tagline: Seemless mock server integration for your Nuxt project
+  image: /devtools/general-zoomed.png
   actions:
     - theme: brand
       text: Getting Started
       link: /getting-started
-    - theme: alt
-      text: Is this module for you?
-      link: /getting-started#why-was-this-module-created
     - theme: alt
       text: Examples
       link: /markdown-examples

@@ -10,4 +10,9 @@ export function setupAutoImports(resolver: Resolver) {
     name: "defineMockInterceptorHandler",
     from: resolver.resolve("./runtime/server/handlers/define-mock-interceptor-handler"),
   }]);
+
+  addServerImports([{
+    name: "definePresetHandler",
+    from: resolver.resolve("./runtime/server/handlers/define-preset-handler"),
+  }]);
 }

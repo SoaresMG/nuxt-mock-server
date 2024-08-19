@@ -25,17 +25,7 @@ See <a href="../configuration#auto">options.auto</a> on how to disable the auto 
 
 In this mode, the module will only intercept the requests whose routes are explicitly defined with `defineMockInterceptorHandler`.
 
-### Example
-
-```ts
-export default defineMockInterceptorHandler((event) => {
-    const { cms } = getRuntimeConfig(event);
-    const data = getDataFromCms(cms);
-    return data;
-})
-```
-
-This mode doesn't need to be "enabled", it's always available as long as the handler is used.
+See <a href="../utilities/define-mock-interceptor-handler">defineMockInterceptorHandler</a> for more information.
 
 ## Hybrid
 
@@ -64,7 +54,7 @@ export default defineNuxtConfig({
 });
 ```
 
-And use `defineMockInterceptorHandler` instead of `defineEventHandler` for the other route:
+And use <a href="../utilities/define-mock-interceptor-handler">`defineMockInterceptorHandler`</a> instead of `defineEventHandler` for the other route:
 
 ```ts
 export default defineMockInterceptorHandler((event) => {

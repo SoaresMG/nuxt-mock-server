@@ -1,8 +1,8 @@
 ---
-title: Generations
+title: Devtools
 ---
 
-# Generations
+# Devtools
 
 `nuxt-mock-server` provides a set of devtools to help you manage your mocks and presets.
 
