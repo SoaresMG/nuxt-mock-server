@@ -1,7 +1,7 @@
 {
   "name": "nuxt-mock-server",
   "type": "module",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Module that easily adds a mock server to your Nuxt project",
   "author": "Leandro Soares",
   "license": "MIT",

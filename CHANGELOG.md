@@ -1,5 +1,11 @@
 # nuxt-mock-server
 
+## 1.5.2
+
+### Patch Changes
+
+- [#92](https://github.com/SoaresMG/nuxt-mock-server/pull/92) [`d556083`](https://github.com/SoaresMG/nuxt-mock-server/commit/d556083b971b473218502db49dbb9991ca74b4a5) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Expose definePresetHandler
+
 ## 1.5.1
 
 ### Patch Changes
