@@ -34,9 +34,17 @@ export default defineConfig({
       {
         text: "Features",
         items: [
+          { text: "Presets", link: "/features/presets" },
           { text: "Modes", link: "/features/modes" },
-          { text: "Generations", link: "/features/generations" },
-          { text: "Composables", link: "/features/composables" },
+          { text: "Devtools", link: "/features/devtools" },
+        ],
+      },
+      {
+        text: "Utils",
+        items: [
+          { text: "useMockServer", link: "/utilities/use-mock-server" },
+          { text: "defineMockInterceptorHandler", link: "/utilities/define-mock-interceptor-handler" },
+          { text: "definePresetHandler", link: "/utilities/define-preset-handler" },
         ],
       },
     ],

@@ -5,5 +5,8 @@
   "version": "0.0.0",
   "description": "Documentation for nuxt-mock-server",
   "author": "Leandro Soares",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "medium-zoom": "1.1.0"
+  }
 }

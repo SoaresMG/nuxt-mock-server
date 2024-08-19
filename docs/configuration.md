@@ -17,6 +17,92 @@ export default defineNuxtConfig({
 
 This being done, the server will start intercepting all requests made for the default `pathMatch` located in the options.
 
+## Defining options
+
+There are three different ways of setting up options and they are all merged together, meaning that part of the configuration can live separate in the different strategies.
+
+The order of merge is the following:
+1. Module Options
+2. RuntimeConfig
+3. `mock-server:extendOptions` Build hook
+
+::: info
+If property "enabled" exists in all of them, the one who has the highest priority comes from `mock-server:extendOptions`.
+:::
+
+### Module Options
+
+The easiest way to define options is through the `nuxt.config.ts` file.
+
+```ts
+export default defineNuxtConfig({
+  modules: ["nuxt-mock-server"],
+
+  mocks: {
+    enabled: true,
+    mockDir: "./mocks",
+    auto: true,
+    pathMatch: "^\\/api\\/.*$",
+    devtools: true,
+    defaultPreset: "default",
+    debug: false,
+    generate: {
+      routes: ["/my-route", "/my-other-route"],
+      parallel: false,
+    },
+  },
+});
+```
+
+### RuntimeConfig
+
+Similarly to the module options, the runtime config can be used to define options.
+
+```ts
+export default defineNuxtConfig({
+  modules: ["nuxt-mock-server"],
+
+  runtimeConfig: {
+    mockServer: {
+      /* ... */
+      generate: {
+        routes: ["/my-route", "/my-other-route"],
+        parallel: false,
+      },
+    },
+  },
+});
+```
+
+### `mock-server:extendOptions` Hook
+
+This hook can be used to extend the options if you need to do some dynamic configuration that requires for example other hook calls, or just dynamic data (async). 
+
+```ts
+export default defineNuxtModule({
+    setup(_, nuxt) {
+        const service = myService(nuxt.options.runtimeConfig.myServiceConfig);
+
+        nuxt.hook("mock-server:extendOptions", async (mockServer) => {
+            const routes = await service.getDynamicRoutes();
+
+            mockServer.generate = {
+                ...mockServer.generate,
+                routes: routes.map(
+                    (route) => `/api/page?slug=${route.url}`,
+                ),
+            };
+        });
+    },
+});
+```
+
+In the example above, the `myService` is a service that fetches data from an external source and based on that data, it will enable or disable the mock server and add routes to be generated.
+
+::: tip
+The tricky part here is that typically the route for a page differs from the route for the API, so it's necessary to map the routes to the API route.
+:::
+
 ## Options
 
 ### enabled
@@ -62,8 +148,23 @@ The path to match for the mock server to intercept in auto-mode.
 
 If the devtools tab should be enabled.
 
-- Type: `boolean | undefined`
+- Type: `boolean | DevtoolsOptions`
 - Default: `true`
+
+This options also has the possibility to disable features, like the `generate` or `.create` button.
+
+This is specially useful if you want to use `useMockServer` (see <a href="/features/use-mock-server">here</a>) and delegate those actions into the app itself.
+
+#### DevtoolsOptions
+
+```ts 
+{
+  createPreset?: boolean;
+  setPreset?: boolean;
+  deletePreset?: boolean;
+  generatePreset?: boolean;
+}
+```
 
 ### defaultPreset
 
@@ -90,7 +191,7 @@ Typically you don't want to enable this, otherwise it will pollute your terminal
 
 Configuration regarding the generation phase.
 
-Read more about generations here <a href="/generations">here</a>.
+Read more about configuring routes here <a href="#defining-options">here</a>.
 
 - Type: `object`
 - Default: `undefined`
