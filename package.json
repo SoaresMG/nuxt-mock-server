@@ -42,7 +42,8 @@
     "release": "pnpm build && changeset publish",
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "docs:release": "nuxt-module-build prepare && pnpm docs:build"
   },
   "dependencies": {
     "@nuxt/devtools-kit": "1.3.9",
