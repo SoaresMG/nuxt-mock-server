@@ -11,6 +11,7 @@ concurrency:
 
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,6 +37,7 @@ jobs:
         run: npx commitlint --from HEAD~${{ github.event.pull_request.commits }} --to HEAD --verbose
 
   build:
+    name: Build Pkg
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -67,3 +69,26 @@ jobs:
           if-no-files-found: "error"
           retention-days: 30
 
+  build-docs:
+    name: Build Docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: pnpm
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: Build with VitePress
+        run: pnpm run docs:release
