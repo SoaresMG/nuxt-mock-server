@@ -1,5 +1,13 @@
 # nuxt-mock-server
 
+## 1.5.3
+
+### Patch Changes
+
+- [#102](https://github.com/SoaresMG/nuxt-mock-server/pull/102) [`e587b17`](https://github.com/SoaresMG/nuxt-mock-server/commit/e587b1723c55259fb6dac95073179668bdf1fe54) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Remove pathMatch from the enabled log if auto is not enabled
+
+- [#102](https://github.com/SoaresMG/nuxt-mock-server/pull/102) [`e587b17`](https://github.com/SoaresMG/nuxt-mock-server/commit/e587b1723c55259fb6dac95073179668bdf1fe54) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Add progress indication during route mock generation
+
 ## 1.5.2
 
 ### Patch Changes
