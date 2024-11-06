@@ -68,7 +68,7 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     if (options.debug) {
-      logger.info(`Mock server is enabled for ${options.pathMatch}`);
+      logger.info(`Mock server is enabled${options.auto ? `for ${options.pathMatch}` : ""}`);
     }
 
     if (options.auto) {
