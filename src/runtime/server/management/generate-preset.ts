@@ -25,6 +25,8 @@ export const generatePreset = async (
     return;
   }
 
+  consola.info(`[mock-server] Generating ${routes.length} routes for preset ${preset}`);
+
   if (generate?.parallel) {
     const routeCalls = await Promise.allSettled(
       routes.map(route => request(
@@ -76,9 +78,12 @@ async function request(
       );
       return;
     }
+    else if (debug) {
+      consola.success(`[mock-server] ${route}`);
+    }
   }
   catch (e) {
-    consola.error(`[mock-server] Failed to generate ${route}`, e);
+    consola.error(`[mock-server] ${route}`, e);
     throw e;
   }
 }
