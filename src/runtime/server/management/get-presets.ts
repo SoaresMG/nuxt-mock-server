@@ -1,16 +1,8 @@
-import type { Dirent } from "node:fs";
 import fs from "node:fs/promises";
 import type { H3Event } from "h3";
-import consola from "consola";
-import { AutoFormatter } from "../../formatters";
 import type { MockPreset } from "../../types";
-import { notUndefinedOrNull } from "../../utils";
+import { getPresetEntries } from "../../utils/get-preset-entries";
 import { useRuntimeConfig } from "#imports";
-
-const getEntry = (dirent: Dirent) => {
-  const formatter = new AutoFormatter(dirent.path, consola.error);
-  return formatter.getEntry(dirent.name);
-};
 
 export async function getPresets(event: H3Event) {
   const { mockServer } = useRuntimeConfig(event);
@@ -20,7 +12,7 @@ export async function getPresets(event: H3Event) {
   }
 
   const mockDirents = await fs.readdir(mockServer.mockDir, { recursive: true, withFileTypes: true });
-  const entries = (await Promise.all(mockDirents.filter(dirent => dirent.isFile()).map(getEntry))).filter(notUndefinedOrNull);
+  const entries = await getPresetEntries(mockDirents);
 
   const presets: MockPreset[] = [];
 
