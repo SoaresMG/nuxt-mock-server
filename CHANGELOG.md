@@ -1,5 +1,21 @@
 # nuxt-mock-server
 
+## 1.6.0
+
+### Minor Changes
+
+- [#104](https://github.com/SoaresMG/nuxt-mock-server/pull/104) [`7ad48f7`](https://github.com/SoaresMG/nuxt-mock-server/commit/7ad48f731e459fd79cadae823812718a1e8d8133) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Add possibility of cleaning unused mocks when generating
+
+- [#104](https://github.com/SoaresMG/nuxt-mock-server/pull/104) [`7ad48f7`](https://github.com/SoaresMG/nuxt-mock-server/commit/7ad48f731e459fd79cadae823812718a1e8d8133) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Separate mock and meta by using a manifest.json
+
+### Patch Changes
+
+- [#98](https://github.com/SoaresMG/nuxt-mock-server/pull/98) [`2ba7c7a`](https://github.com/SoaresMG/nuxt-mock-server/commit/2ba7c7a443fc7f4bac5305a25f92034dad461535) Thanks [@renovate](https://github.com/apps/renovate)! - Update all non-major dependencies
+
+- [#100](https://github.com/SoaresMG/nuxt-mock-server/pull/100) [`217eb0e`](https://github.com/SoaresMG/nuxt-mock-server/commit/217eb0e0f92b3c15f0b03ec9842e91df8e9a461f) Thanks [@renovate](https://github.com/apps/renovate)! - Update to sirv@3
+
+- [#106](https://github.com/SoaresMG/nuxt-mock-server/pull/106) [`f79a9da`](https://github.com/SoaresMG/nuxt-mock-server/commit/f79a9da897465159ad65efbfb9346231dd644239) Thanks [@SoaresMG](https://github.com/SoaresMG)! - getPresets was failing since manifest.json was not excluded from possible entries
+
 ## 1.5.3
 
 ### Patch Changes
