@@ -1,5 +1,5 @@
 export enum MAIN_HEADER_VALUE {
-  IGNORE = "IGNORE",
+  PROXY = "PROXY",
   FOUND = "FOUND",
   CREATED = "CREATED",
 };

@@ -9,6 +9,9 @@ export function useMockServer(event: H3Event) {
     deletePreset: (name: string, options?: DeletePresetOptions) => deletePreset(event, name, options),
     setPreset: (name: string) => setPreset(event, name),
     getPreset: (name: string) => getPreset(event, name),
-    generatePreset: (name: string) => generatePreset(event, name),
+    generatePreset: (name: string, cleanUnused: boolean) => generatePreset(event, {
+      _preset: name,
+      cleanUnused,
+    }),
   };
 }
