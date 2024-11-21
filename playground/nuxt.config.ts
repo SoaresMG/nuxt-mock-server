@@ -36,6 +36,8 @@ export default defineNuxtConfig({
       },
     })],
 
+  compatibilityDate: "2024-08-04",
+
   hooks: {
     "mock-server:extendOptions": (options) => {
       options.generate = options.generate || {};
@@ -58,6 +60,4 @@ export default defineNuxtConfig({
       parallel: true,
     },
   },
-
-  compatibilityDate: "2024-08-04",
 });
