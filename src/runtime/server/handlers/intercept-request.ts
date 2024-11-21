@@ -2,7 +2,7 @@ import { defineEventHandler, type EventHandler, type EventHandlerRequest, type H
 import consola from "consola";
 import { AutoFormatter } from "../../formatters";
 import type { FormatterDataType } from "../../types";
-import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE, transformHeaders } from "../../utils";
+import { isGeneratingPreset, isProxyingRequest, MAIN_HEADER_KEY, MAIN_HEADER_VALUE, transformHeaders } from "../../utils";
 import { definePresetHandler } from "./define-preset-handler";
 import { useNitroApp, useRuntimeConfig } from "#imports";
 
@@ -20,7 +20,7 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
 
   if (
     (!options.forceRouteMatch && !options?.routeRegExp.test(event.path))
-    || event.headers.get(MAIN_HEADER_KEY) === MAIN_HEADER_VALUE.IGNORE
+    || isProxyingRequest(event)
     || !mockServer?.enabled
   ) {
     return handler(event);
@@ -30,14 +30,14 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
 
   const mockResponse = await formatter.get(event.path);
 
-  if (mockResponse) {
+  if (!isGeneratingPreset(event) && mockResponse) {
+    // During generation of mocks we want to ignore all previously generated ones
     const { body, headers, status } = mockResponse;
 
-    await event.respondWith(new Response(body, {
+    return await event.respondWith(new Response(body, {
       headers,
       status,
     }));
-    return;
   }
 
   const localResponse = await nitro.localFetch(event.path, {
@@ -45,7 +45,7 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
     cache: "no-cache",
     headers: {
       ...transformHeaders(event.headers),
-      [MAIN_HEADER_KEY]: MAIN_HEADER_VALUE.IGNORE,
+      [MAIN_HEADER_KEY]: MAIN_HEADER_VALUE.PROXY,
     },
   });
 

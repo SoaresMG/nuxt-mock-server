@@ -7,6 +7,8 @@ import type { MockPreset } from "../../types";
 import { notUndefinedOrNull } from "../../utils";
 import { useRuntimeConfig } from "#imports";
 
+const NON_MOCK_FILES = ["manifest.json"];
+
 const getEntry = (dirent: Dirent) => {
   const formatter = new AutoFormatter(dirent.path, consola.error);
   return formatter.getEntry(dirent.name);
@@ -20,7 +22,11 @@ export async function getPreset(event: H3Event, name: string): Promise<MockPrese
   }
 
   const mockDirents = await fs.readdir(`${mockServer.mockDir}/${name}`, { recursive: true, withFileTypes: true });
-  const entries = (await Promise.all(mockDirents.filter(dirent => dirent.isFile()).map(getEntry))).filter(notUndefinedOrNull);
+  const entries = (await Promise.all(
+    mockDirents
+      .filter(dirent => dirent.isFile() && !NON_MOCK_FILES.includes(dirent.name))
+      .map(getEntry),
+  )).filter(notUndefinedOrNull);
 
   return { name, entries, isCurrent: name === event.context.preset };
 }
