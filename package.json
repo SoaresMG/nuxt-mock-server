@@ -59,7 +59,7 @@
     "@changesets/cli": "2.27.10",
     "@commitlint/cli": "19.6.0",
     "@commitlint/config-conventional": "19.6.0",
-    "@faker-js/faker": "8.4.1",
+    "@faker-js/faker": "9.2.0",
     "@nuxt/eslint-config": "0.7.1",
     "@nuxt/kit": "3.14.1592",
     "@nuxt/module-builder": "0.8.4",
