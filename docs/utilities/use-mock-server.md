@@ -98,3 +98,14 @@ export default defineEventHandler((event) => {
     return mockServer.generatePreset(query.toString());
 });
 ```
+
+By default this function will also clean (delete) the current preset before generating the new mocks.
+To disable the behaviour pass `false` as the second argument.
+
+```ts
+export default defineEventHandler((event) => {
+    const mockServer = useMockServer(event);
+    const query = getQuery(event);
+    return mockServer.generatePreset(query.toString(), false);
+});
+```
