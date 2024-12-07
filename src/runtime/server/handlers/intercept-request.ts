@@ -2,7 +2,8 @@ import { defineEventHandler, type EventHandler, type EventHandlerRequest, type H
 import consola from "consola";
 import { AutoFormatter } from "../../formatters";
 import type { FormatterDataType } from "../../types";
-import { isGeneratingPreset, isProxyingRequest, MAIN_HEADER_KEY, MAIN_HEADER_VALUE, transformHeaders } from "../../utils";
+import { MAIN_HEADER_KEY, MAIN_HEADER_VALUE, transformHeaders } from "../../utils";
+import { requestIsSkipped, isGeneratingPreset } from "../../utils/event-context-utils";
 import { definePresetHandler } from "./define-preset-handler";
 import { useNitroApp, useRuntimeConfig } from "#imports";
 
@@ -20,8 +21,7 @@ export const interceptRequest = <T extends EventHandlerRequest, D>(
 
   if (
     (!options.forceRouteMatch && !options?.routeRegExp.test(event.path))
-    || isProxyingRequest(event)
-    || !mockServer?.enabled
+    || requestIsSkipped(event)
   ) {
     return handler(event);
   }
