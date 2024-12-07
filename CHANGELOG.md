@@ -1,5 +1,15 @@
 # nuxt-mock-server
 
+## 1.7.0
+
+### Minor Changes
+
+- [#111](https://github.com/SoaresMG/nuxt-mock-server/pull/111) [`556e669`](https://github.com/SoaresMG/nuxt-mock-server/commit/556e6699b7ed32af166f8d930567bfe943d5eaed) Thanks [@SoaresMG](https://github.com/SoaresMG)! - Added pause/resume mechanism for the whole mock-server
+
+### Patch Changes
+
+- [#109](https://github.com/SoaresMG/nuxt-mock-server/pull/109) [`5b314a3`](https://github.com/SoaresMG/nuxt-mock-server/commit/5b314a3ac893388c1d45bd05a27d8355604152dd) Thanks [@SoaresMG](https://github.com/SoaresMG)! - generatePreset utility must have cleanUnused as optional
+
 ## 1.6.0
 
 ### Minor Changes
