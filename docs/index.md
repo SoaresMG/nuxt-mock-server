@@ -10,9 +10,6 @@ hero:
     - theme: brand
       text: Getting Started
       link: /getting-started
-    - theme: alt
-      text: Examples
-      link: /markdown-examples
 
 features:
   - title: Full SSR Seamless experience

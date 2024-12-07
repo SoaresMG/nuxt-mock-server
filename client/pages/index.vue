@@ -97,6 +97,22 @@
               Refresh
             </template>
           </VTooltip>
+          <VTooltip>
+            <button
+              text-lg=""
+              type="button"
+              class="n-icon-button n-button n-transition hover:n-bg-active"
+              @click="isPaused ? resume() : pause()"
+            >
+              <NIcon
+                :icon="isPaused ? 'carbon:play-outline' : 'carbon:pause-outline'"
+                class="group-hover:text-green-500"
+              />
+            </button>
+            <template #popper>
+              {{ isPaused ? "Resume" : "Pause" }} mocks
+            </template>
+          </VTooltip>
           <VTooltip v-if="moduleMeta?.devtools.createPreset">
             <button
               text-lg=""
@@ -296,6 +312,7 @@ import { usePresets } from "../composables/use-presets";
 import { useModuleMeta } from "../composables/use-module-meta";
 import { loadShiki } from "../composables/shiki";
 import { useRpc } from "../composables/use-rpc";
+import { useActivation } from "../composables/use-activation";
 import { computed, useHead } from "#imports";
 
 await loadShiki();
@@ -308,6 +325,7 @@ const currentTab = useLocalStorage<typeof tabs[number]>("nuxt-mock-server:tab", 
 
 const { presets, loadPresets, setPreset, deletePreset, generatePreset, isLoading } = usePresets();
 const { moduleMeta } = useModuleMeta();
+const { isPaused, pause, resume } = useActivation();
 
 const isCreatingPreset = ref(false);
 const isDeletingPreset = ref<string | false>(false);

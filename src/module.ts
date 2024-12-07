@@ -115,6 +115,24 @@ export default defineNuxtModule<ModuleOptions>({
         });
       }
 
+      addServerHandler({
+        route: "/__mock-server__/activation/pause",
+        method: "post",
+        handler: resolver.resolve("./runtime/server/routes/activation/pause.post"),
+      });
+
+      addServerHandler({
+        route: "/__mock-server__/activation/resume",
+        method: "post",
+        handler: resolver.resolve("./runtime/server/routes/activation/resume.post"),
+      });
+
+      addServerHandler({
+        route: "/__mock-server__/activation",
+        method: "get",
+        handler: resolver.resolve("./runtime/server/routes/activation/check"),
+      });
+
       setupDevToolsUI(nuxt, resolver);
     }
   },

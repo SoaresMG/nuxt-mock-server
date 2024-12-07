@@ -109,3 +109,18 @@ export default defineEventHandler((event) => {
     return mockServer.generatePreset(query.toString(), false);
 });
 ```
+
+## `pause` / `resume`
+
+These functions allow you to pause or resume the mock server programatically.
+
+::: warning
+If the mock server is disabled on runtimeConfig level, it won't be possible to pause/resume it.
+:::
+
+```ts
+export default defineEventHandler((event) => {
+    const mockServer = useMockServer(event);
+    return mockServer.pause();
+});
+```
