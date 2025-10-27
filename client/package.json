@@ -4,7 +4,7 @@
   "private": true,
   "devDependencies": {
     "@iconify-json/carbon": "1.2.4",
-    "@nuxt/devtools-kit": "1.6.3",
+    "@nuxt/devtools-kit": "2.7.0",
     "@nuxt/devtools-ui-kit": "latest",
     "@nuxt/kit": "3.14.1592",
     "floating-vue": "5.2.2",

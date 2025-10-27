@@ -46,7 +46,7 @@
     "docs:release": "nuxt-module-build prepare && pnpm docs:build"
   },
   "dependencies": {
-    "@nuxt/devtools-kit": "1.6.3",
+    "@nuxt/devtools-kit": "2.7.0",
     "@nuxt/kit": "3.14.1592",
     "consola": "3.2.3",
     "pathe": "1.1.2",
