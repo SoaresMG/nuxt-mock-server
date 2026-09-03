@@ -50,7 +50,7 @@
     "@nuxt/kit": "3.14.1592",
     "consola": "3.2.3",
     "pathe": "1.1.2",
-    "pkg-types": "1.2.1",
+    "pkg-types": "2.3.2",
     "sirv": "3.0.0",
     "superjson": "2.2.2"
   },
