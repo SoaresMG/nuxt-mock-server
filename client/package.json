@@ -3,14 +3,14 @@
   "verison": "0.0.0",
   "private": true,
   "devDependencies": {
-    "@iconify-json/carbon": "1.2.4",
-    "@nuxt/devtools-kit": "1.6.3",
+    "@iconify-json/carbon": "1.2.26",
+    "@nuxt/devtools-kit": "1.7.0",
     "@nuxt/devtools-ui-kit": "latest",
-    "@nuxt/kit": "3.14.1592",
+    "@nuxt/kit": "3.21.11",
     "floating-vue": "5.2.2",
     "nuxt": "latest",
-    "shiki": "1.24.0",
-    "vue": "3.5.13",
+    "shiki": "1.29.2",
+    "vue": "3.5.42",
     "vue-router": "latest"
   }
 }
