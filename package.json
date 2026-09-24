@@ -60,7 +60,7 @@
     "@commitlint/cli": "19.6.0",
     "@commitlint/config-conventional": "19.6.0",
     "@faker-js/faker": "9.3.0",
-    "@nuxt/eslint-config": "0.7.2",
+    "@nuxt/eslint-config": "1.17.0",
     "@nuxt/kit": "3.14.1592",
     "@nuxt/module-builder": "0.8.4",
     "@nuxt/test-utils": "3.15.1",
